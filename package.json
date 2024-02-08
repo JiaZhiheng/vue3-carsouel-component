@@ -1,0 +1,35 @@
+{
+  "name": "vue3-carousel-component",
+  "version": "1.0.0-alpha.1",
+  "description": "A Vue 3 carousel component",
+  "files": ["dist"],
+  "main": "dist/carousel.umd.js",
+  "module": "dist/carousel.es.js",
+  "license": "MIT",
+  "private": false,
+  "author": "jiazhieng",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/carousel.es.js",
+      "require": "./dist/carousel.umd.js"
+    },
+    "./dist/style.css": {
+      "import": "./dist/style.css",
+      "require": "./dist/style.css"
+    }
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vue": "^3.3.11"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.5.2",
+    "sass": "^1.70.0",
+    "vite": "^5.0.8"
+  }
+}
