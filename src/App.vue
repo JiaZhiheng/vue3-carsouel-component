@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 // import Carousel from './components/carousel/Carousel.vue'
-import Carousel from '../dist/carousel.es';
+import Carousel from '../dist/carousel.esm';
 import CardFade from './components/card/CardFade.vue';
 import CardVertical from './components/card/CardVertical.vue';
 import CardHorizontal from './components/card/CardHorizontal.vue';

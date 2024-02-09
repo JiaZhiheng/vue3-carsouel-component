@@ -2,7 +2,22 @@
   "name": "vue3-carousel-component",
   "version": "1.0.0-alpha.1",
   "description": "A Vue 3 carousel component",
-  "files": ["dist"],
+  "keywords": [
+    "carousel",
+    "vue3",
+    "scroll",
+    "slide",
+    "fade"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JiaZhiheng/vue3-carsouel-component"
+  },
+  "homepage": "https://github.com/JiaZhiheng/vue3-carsouel-component",
+  "bugs": "https://github.com/JiaZhiheng/vue3-carsouel-component/issues",
+  "files": [
+    "dist"
+  ],
   "main": "dist/carousel.umd.js",
   "module": "dist/carousel.es.js",
   "license": "MIT",
@@ -30,6 +45,7 @@
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.5.2",
     "sass": "^1.70.0",
-    "vite": "^5.0.8"
+    "vite": "^5.1.1",
+    "vite-plugin-libcss": "^1.1.1"
   }
 }
