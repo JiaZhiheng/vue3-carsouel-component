@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="showArrow">
     <div class="arrow arrow-prev" @click="handlePrev">
       <svg
         width="2em"
@@ -32,7 +32,12 @@
     </div>
   </div>
 </template>
+
 <script setup>
+const props = defineProps({
+  showArrow: String
+});
+
 const emit = defineEmits(['prev', 'next']);
 
 function handlePrev() {
@@ -43,6 +48,7 @@ function handleNext() {
   emit('next');
 }
 </script>
+
 <style scoped lang="scss">
 .arrow {
   position: absolute;
@@ -79,6 +85,45 @@ function handleNext() {
   .container:hover &-next {
     transform: translateX(0) translateY(-50%);
     opacity: 1;
+  }
+}
+
+.never {
+  display: none;
+}
+
+.hover {
+  .arrow {
+    @extend .arrow;
+
+    &-prev {
+      opacity: 0;
+    }
+
+    &-next {
+      opacity: 0;
+    }
+  }
+
+  &:hover {
+    .arrow {
+      &-prev,
+      &-next {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.always {
+  .arrow {
+    @extend .arrow;
+
+    &-prev,
+    &-next {
+      transform: translateX(0) translateY(-50%);
+      opacity: 1;
+    }
   }
 }
 </style>

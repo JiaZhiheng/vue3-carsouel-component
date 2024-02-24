@@ -12,14 +12,16 @@
       <slot></slot>
     </carousel-context>
     <carousel-dots
-      v-if="showDots"
-      @to="to"
+      :show-dots="showDots"
       :card-num="cardNum"
       :slides-per-view="slidesPerView"
       :index-counter="indexCounter"
+      :dot-type="dotType"
+      :dot-placement="dotPlacement"
+      @to="to"
     >
     </carousel-dots>
-    <carousel-arrow v-if="showArrow" @prev="prev" @next="next"> </carousel-arrow>
+    <carousel-arrow :show-arrow="showArrow" @prev="prev" @next="next"> </carousel-arrow>
   </div>
 </template>
 <script setup>
@@ -34,13 +36,20 @@ import CarouselDots from './CarouselDots.vue';
  * @prop {String} direction - 轮播图方向，可选值包括 "horizontal"、"vertical"。
  * @prop {String} effect - 轮播图效果，可选值包括 "slide"、"fade"。
  * @prop {Boolean} turnDirection - 轮播方向，默认为 true。
- * @prop {Boolean} showDots - 是否显示轮播点，默认为 false。
- * @prop {Boolean} showArrow - 是否显示轮播箭头，默认为 false。
+ * @prop {String} showDots - 是否显示轮播点，可选值包括 "always"、"hover"、"never"。
+ * @prop {String} showArrow - 是否显示轮播箭头，可选值包括 "always"、"hover"、"never"。
  * @prop {Number} slidesPerView - 每一页显示的轮播图数量，默认为 1。
  * @prop {Number} spaceBetween - 轮播图之间的间距，默认为 0。
  * @prop {Number} interval - 轮播间隔，单位毫秒，默认为 4000。
  * @prop {String} transitionStyle - 过渡效果的样式，单位秒，必需属性。
  * @prop {Boolean} immediate - 是否立即开始轮播，默认为 false。
+ * @prop {Boolean} autoplay - 是否自动播放，默认为 true。
+ * @prop {String} dotPlacement - 轮播指示点位置，可选值包括 "top"、"bottom"、"left"、"right"，默认为 'bottom'。
+ * @prop {String} dotType - 轮播指示点样式，可选值包括 "dot"、"line"，默认为 'dot'。
+ * @prop {Number} delay - 延时播放时间，默认为 0。
+ *
+ * 待开发
+ * @prop {Boolean} loop - 是否循环播放，默认为 true。
  */
 const props = defineProps({
   direction: {
@@ -62,12 +71,18 @@ const props = defineProps({
     default: true
   },
   showDots: {
-    type: Boolean,
-    default: false
+    type: String,
+    default: 'hover',
+    validator: (value) => {
+      return ['always', 'hover', 'never'].includes(value);
+    }
   },
   showArrow: {
-    type: Boolean,
-    default: false
+    type: String,
+    default: 'hover',
+    validator: (value) => {
+      return ['always', 'hover', 'never'].includes(value);
+    }
   },
   slidesPerView: {
     type: Number,
@@ -88,6 +103,28 @@ const props = defineProps({
   immediate: {
     type: Boolean,
     default: false
+  },
+  autoplay: {
+    type: Boolean,
+    default: true
+  },
+  dotPlacement: {
+    type: String,
+    default: 'bottom',
+    validator: (value) => {
+      return ['top', 'bottom', 'left', 'right'].includes(value);
+    }
+  },
+  dotType: {
+    type: String,
+    default: 'line',
+    validator: (value) => {
+      return ['dot', 'line'].includes(value);
+    }
+  },
+  delay: {
+    type: Number,
+    default: 0
   }
 });
 
@@ -100,7 +137,7 @@ const waitingForPlay = ref(false);
  * 轮播图自动播放锁
  * @type {Ref<boolean>}
  * @default false
- * @description 
+ * @description
  * 作用：控制轮播图是否可以自动播放，当页面不可见时，自动播放会被暂停。
  * 原因：由于浏览器的性能优化策略，当页面不可见时，浏览器会停止一切与页面渲染相关的操作。
  *      此时 transition 动画停止播放但定时器仍在运行，造成动画与定时器不同步的现象。
@@ -111,7 +148,7 @@ const waitingForPlay = ref(false);
  * 注意：不要在页面不可见时将 waitingForPlay 赋值为 true。
  *      因为频繁切换标签页时会重复调用 init 方法，导致轮播图重复播放，最终造成卡片重叠的问题。
  *      而要在轮播图切换时将 waitingForPlay 赋值为 true。
- *      即使频繁切换标签页也不会重复调用 init 方法，可以规避轮播图重复播放造成卡片重叠的问题。 
+ *      即使频繁切换标签页也不会重复调用 init 方法，可以规避轮播图重复播放造成卡片重叠的问题。
  */
 
 // 监听页面可见性变化
@@ -168,6 +205,7 @@ function getCurrentIndex() {
 
 // 开始播放
 function startPlay() {
+  if (!props.autoplay) return;
   playIntervalId.value = setInterval(props.turnDirection ? toNext : toPrev, props.interval);
 }
 
@@ -179,13 +217,13 @@ function stopPlay() {
 // 初始化
 function init() {
   stopPlay();
-  if (props.immediate) props.turnDirection ? toNext() : toPrev();
+  if (props.immediate && props.autoplay) props.turnDirection ? toNext() : toPrev();
   startPlay();
 }
 
 // 监听页面加载完成事件
 onMounted(() => {
-  setTimeout(init, 1400);
+  setTimeout(init, props.delay);
   document.addEventListener('visibilitychange', handleVisibilityChange);
 });
 
@@ -196,5 +234,28 @@ onUnmounted(() => {
 });
 </script>
 
+<style scoped lang="scss">
+.container {
+  position: relative;
+}
 
-
+// .container {
+//   position: relative;
+//   overflow: hidden;
+//   width: 100%;
+//   height: 100%;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   user-select: none;
+//   cursor: pointer;
+//   &:hover {
+//     .arrow {
+//       opacity: 1;
+//     }
+//     .dots {
+//       opacity: 1;
+//     }
+//   }
+// }
+</style>

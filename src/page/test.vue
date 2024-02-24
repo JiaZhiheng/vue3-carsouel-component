@@ -1,0 +1,289 @@
+<template>
+  <div class="wrap">
+    <table class="table">
+      <caption>参数指示器</caption>
+      <tr>
+        <th>参数</th>
+        <th>说明</th>
+        <th>选项</th>
+      </tr>
+      <tr>
+        <td>showDots</td>
+        <td>是否显示轮播点</td>
+        <td>
+          <segmented
+            @change="handleChange($event)"
+            :option="showDotsOption"
+            v-model:value="showDots"
+          ></segmented>
+        </td>
+      </tr>
+      <tr>
+        <td>showArrow</td>
+        <td>是否显示轮播箭头</td>
+        <td>
+          <segmented
+            @change="handleChange($event)"
+            :option="showArrowOption"
+            v-model:value="showArrow"
+          ></segmented>
+        </td>
+      </tr>
+      <tr>
+        <td>dotPlacement</td>
+        <td>轮播指示点位置</td>
+        <td>
+          <segmented
+            @change="handleChange($event)"
+            :option="dotPlacementOption"
+            v-model:value="dotPlacement"
+          ></segmented>
+        </td>
+      </tr>
+      <tr>
+        <td>dotType</td>
+        <td>轮播指示点样式</td>
+        <td>
+          <segmented
+            @change="handleChange($event)"
+            :option="dotTypeOption"
+            v-model:value="dotType"
+          ></segmented>
+        </td>
+      </tr>
+      <tr>
+        <td>direction</td>
+        <td>轮播图方向</td>
+        <td>
+          <segmented
+            @change="handleChange($event)"
+            :option="directionOption"
+            v-model:value="direction"
+          ></segmented>
+        </td>
+      </tr>
+    </table>
+    <carousel
+      class="carousel"
+      transitionStyle="all 300ms linear"
+      :showDots="showDots"
+      :showArrow="showArrow"
+      :dotPlacement="dotPlacement"
+      :dotType="dotType"
+      :direction="direction"
+      :effect="'slide'"
+    >
+      <div v-for="item in cardList" :style="item.style"></div>
+    </carousel>
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue';
+import Segmented from '../components/segmented/Segmented.vue';
+import Carousel from '../components/carousel/Carousel.vue';
+
+const cardList = ref([
+  {
+    style: {
+      backgroundColor: '#5c0011',
+      width: '100%',
+      height: '100%'
+    }
+  },
+  {
+    style: {
+      backgroundColor: '#610b00',
+      width: '100%',
+      height: '100%'
+    }
+  },
+  {
+    style: {
+      backgroundColor: '#612500',
+      width: '100%',
+      height: '100%'
+    }
+  },
+  {
+    style: {
+      backgroundColor: '#613400',
+      width: '100%',
+      height: '100%'
+    }
+  },
+  {
+    style: {
+      backgroundColor: '#614700',
+      width: '100%',
+      height: '100%'
+    }
+  },
+  {
+    style: {
+      backgroundColor: '#254000',
+      width: '100%',
+      height: '100%'
+    }
+  },
+  {
+    style: {
+      backgroundColor: '#092b00',
+      width: '100%',
+      height: '100%'
+    }
+  },
+  {
+    style: {
+      backgroundColor: '#002329',
+      width: '100%',
+      height: '100%'
+    }
+  },
+  {
+    style: {
+      backgroundColor: '#001d66',
+      width: '100%',
+      height: '100%'
+    }
+  },
+  {
+    style: {
+      backgroundColor: '#030852',
+      width: '100%',
+      height: '100%'
+    }
+  },
+  {
+    style: {
+      backgroundColor: '#120338',
+      width: '100%',
+      height: '100%'
+    }
+  },
+  {
+    style: {
+      backgroundColor: '#520339',
+      width: '100%',
+      height: '100%'
+    }
+  }
+]);
+
+const showDots = ref('hover');
+const showArrow = ref('hover');
+const dotPlacement = ref('bottom');
+const dotType = ref('line');
+const direction = ref('horizontal');
+
+const showDotsOption = ref([
+  {
+    value: 'always',
+    disabled: false
+  },
+  {
+    value: 'hover',
+    disabled: false
+  },
+  {
+    value: 'never',
+    disabled: false
+  }
+]);
+const showArrowOption = ref([
+  {
+    value: 'always',
+    disabled: false
+  },
+  {
+    value: 'hover',
+    disabled: false
+  },
+  {
+    value: 'never',
+    disabled: false
+  }
+]);
+const dotPlacementOption = ref([
+  {
+    value: 'top',
+    disabled: false
+  },
+  {
+    value: 'bottom',
+    disabled: false
+  },
+  {
+    value: 'left',
+    disabled: false
+  },
+  {
+    value: 'right',
+    disabled: false
+  }
+]);
+const dotTypeOption = ref([
+  {
+    value: 'dot',
+    disabled: false
+  },
+  {
+    value: 'line',
+    disabled: false
+  }
+]);
+const directionOption = ref([
+  {
+    value: 'horizontal',
+    disabled: false
+  },
+  {
+    value: 'vertical',
+    disabled: false
+  }
+]);
+
+function handleChange(value) {
+  console.log(value);
+}
+</script>
+
+<style scoped lang="scss">
+.wrap {
+  display: flex;
+  margin: 200px auto 0;
+  gap: 20px;
+  width: fit-content;
+}
+
+table {
+  width: 500px;
+  border-collapse: collapse;
+
+  caption {
+    font-size: 1.5rem;
+    line-height: 2;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    background-color: #dfdfdf;
+  }
+
+  th {
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+
+  td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+}
+
+.carousel {
+  width: 500px;
+  height: 350px;
+}
+</style>
