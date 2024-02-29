@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" :class="direction">
     <carousel-context
       :direction="direction"
       :effect="effect"
@@ -13,15 +13,21 @@
     </carousel-context>
     <carousel-dots
       :show-dots="showDots"
+      :dot-type="dotType"
+      :dot-placement="dotPlacement"
       :card-num="cardNum"
       :slides-per-view="slidesPerView"
       :index-counter="indexCounter"
-      :dot-type="dotType"
-      :dot-placement="dotPlacement"
       @to="to"
     >
     </carousel-dots>
-    <carousel-arrow :show-arrow="showArrow" @prev="prev" @next="next"> </carousel-arrow>
+    <carousel-arrow
+      :show-arrow="showArrow"
+      :arrow-placement="arrowPlacement"
+      @prev="prev"
+      @next="next"
+    >
+    </carousel-arrow>
   </div>
 </template>
 <script setup>
@@ -44,7 +50,8 @@ import CarouselDots from './CarouselDots.vue';
  * @prop {String} transitionStyle - 过渡效果的样式，单位秒，必需属性。
  * @prop {Boolean} immediate - 是否立即开始轮播，默认为 false。
  * @prop {Boolean} autoplay - 是否自动播放，默认为 true。
- * @prop {String} dotPlacement - 轮播指示点位置，可选值包括 "top"、"bottom"、"left"、"right"，默认为 'bottom'。
+ * @prop {String} dotPlacement - 轮播指示点位置，可选值包括 "top"、"bottom"、"left"、"right"、"top-left"、"top-right"、"bottom-left"、"bottom-right"，默认为 'bottom'。
+ * @prop {String} arrowPlacement - 轮播箭头位置，可选值包括 "start"、"center"、"end"、"top-left"、"top-right"、"bottom-left"、"bottom-right"，默认为 'center'。
  * @prop {String} dotType - 轮播指示点样式，可选值包括 "dot"、"line"，默认为 'dot'。
  * @prop {Number} delay - 延时播放时间，默认为 0。
  *
@@ -112,7 +119,31 @@ const props = defineProps({
     type: String,
     default: 'bottom',
     validator: (value) => {
-      return ['top', 'bottom', 'left', 'right'].includes(value);
+      return [
+        'top',
+        'bottom',
+        'left',
+        'right',
+        'top-left',
+        'top-right',
+        'bottom-left',
+        'bottom-right'
+      ].includes(value);
+    }
+  },
+  arrowPlacement: {
+    type: String,
+    default: 'bottom',
+    validator: (value) => {
+      return [
+        'start',
+        'center',
+        'end',
+        'top-left',
+        'top-right',
+        'bottom-left',
+        'bottom-right'
+      ].includes(value);
     }
   },
   dotType: {
@@ -238,24 +269,4 @@ onUnmounted(() => {
 .container {
   position: relative;
 }
-
-// .container {
-//   position: relative;
-//   overflow: hidden;
-//   width: 100%;
-//   height: 100%;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   user-select: none;
-//   cursor: pointer;
-//   &:hover {
-//     .arrow {
-//       opacity: 1;
-//     }
-//     .dots {
-//       opacity: 1;
-//     }
-//   }
-// }
 </style>

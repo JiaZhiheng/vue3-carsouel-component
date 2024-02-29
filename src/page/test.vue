@@ -8,6 +8,17 @@
         <th>选项</th>
       </tr>
       <tr>
+        <td>direction</td>
+        <td>轮播图方向</td>
+        <td>
+          <segmented
+            @change="handleChange($event)"
+            :option="directionOption"
+            v-model:value="direction"
+          ></segmented>
+        </td>
+      </tr>
+      <tr>
         <td>showDots</td>
         <td>是否显示轮播点</td>
         <td>
@@ -41,6 +52,17 @@
         </td>
       </tr>
       <tr>
+        <td>arrowPlacement</td>
+        <td>轮播箭头位置</td>
+        <td>
+          <segmented
+            @change="handleChange($event)"
+            :option="arrowPlacementOption"
+            v-model:value="arrowPlacement"
+          ></segmented>
+        </td>
+      </tr>
+      <tr>
         <td>dotType</td>
         <td>轮播指示点样式</td>
         <td>
@@ -51,17 +73,6 @@
           ></segmented>
         </td>
       </tr>
-      <tr>
-        <td>direction</td>
-        <td>轮播图方向</td>
-        <td>
-          <segmented
-            @change="handleChange($event)"
-            :option="directionOption"
-            v-model:value="direction"
-          ></segmented>
-        </td>
-      </tr>
     </table>
     <carousel
       class="carousel"
@@ -69,6 +80,7 @@
       :showDots="showDots"
       :showArrow="showArrow"
       :dotPlacement="dotPlacement"
+      :arrowPlacement="arrowPlacement"
       :dotType="dotType"
       :direction="direction"
       :effect="'slide'"
@@ -170,11 +182,12 @@ const cardList = ref([
   }
 ]);
 
-const showDots = ref('hover');
-const showArrow = ref('hover');
+const direction = ref('vertical'); // vertical | horizontal
+const showDots = ref('always');
+const showArrow = ref('always');
 const dotPlacement = ref('bottom');
+const arrowPlacement = ref('center');
 const dotType = ref('line');
-const direction = ref('horizontal');
 
 const showDotsOption = ref([
   {
@@ -220,6 +233,52 @@ const dotPlacementOption = ref([
   {
     value: 'right',
     disabled: false
+  },
+  {
+    value: 'top-left',
+    disabled: false
+  },
+  {
+    value: 'top-right',
+    disabled: false
+  },
+  {
+    value: 'bottom-left',
+    disabled: false
+  },
+  {
+    value: 'bottom-right',
+    disabled: false
+  }
+]);
+const arrowPlacementOption = ref([
+  {
+    value: 'start',
+    disabled: false
+  },
+  {
+    value: 'center',
+    disabled: false
+  },
+  {
+    value: 'end',
+    disabled: false
+  },
+  {
+    value: 'top-left',
+    disabled: false
+  },
+  {
+    value: 'top-right',
+    disabled: false
+  },
+  {
+    value: 'bottom-left',
+    disabled: false
+  },
+  {
+    value: 'bottom-right',
+    disabled: false
   }
 ]);
 const dotTypeOption = ref([
@@ -257,7 +316,7 @@ function handleChange(value) {
 }
 
 table {
-  width: 500px;
+  width: 950px;
   border-collapse: collapse;
 
   caption {
@@ -283,7 +342,7 @@ table {
 }
 
 .carousel {
-  width: 500px;
+  width: 550px;
   height: 350px;
 }
 </style>

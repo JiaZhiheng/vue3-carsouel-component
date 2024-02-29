@@ -1,6 +1,6 @@
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import path from "path";
+import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
+import path from 'path';
 
 const resolve = (dir) => path.join(__dirname, dir);
 
@@ -9,24 +9,24 @@ export default defineConfig({
   plugins: [vue()],
   resolve: {
     alias: {
-      "@": resolve("src"),
-    },
+      '@': resolve('src')
+    }
   },
   build: {
     lib: {
-      entry: resolve("src/components/carousel/index.js"),
-      name: "carousel",
+      entry: resolve('src/components/carousel/index.js'),
+      name: 'carousel',
       fileName: (format) => `carousel.${format}.js`,
-      formats: ['es', 'umd', 'cjs', 'iife'],
+      formats: ['es', 'umd', 'cjs', 'iife']
     },
     rollupOptions: {
-      external: ["vue"],
+      external: ['vue'],
       output: {
         globals: {
-          vue: "Vue",
-        },
-      },
+          vue: 'Vue'
+        }
+      }
     },
-    minify: false, // 禁用代码压缩
-  },
-})
+    minify: false // 禁用代码压缩
+  }
+});
