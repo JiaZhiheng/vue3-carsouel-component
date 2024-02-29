@@ -31,3 +31,21 @@ A Vue 3 carousel component
 | to   | (index: number) => void | 滑动至某一页 |
 | prev | () => void              | 滑动至前一页 |
 | next | () => void              | 滑动至后一页 |
+
+### 后续更新计划
+
+防抖
+
+loop
+
+scroll
+
+getCurrentIndex
+
+Slot arrow dot
+
+单元测试
+
+Vitepress 文档迁移
+
+TypeScript
