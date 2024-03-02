@@ -24,7 +24,7 @@ const props = defineProps({
     type: String,
     default: 'fade',
     validator: (value) => {
-      return ['slide', 'fade'].includes(value);
+      return ['scroll', 'fade', 'slide'].includes(value);
     }
   },
   cardNum: Number,
@@ -57,7 +57,7 @@ function generateCardArray(cardNum, slidesPerView, direction, effect, spaceBetwe
   }
   for (let i = 0; i < cardNum; i++) {
     const style = { visibility: 'visible' };
-    if (effect === 'slide') {
+    if (effect === 'slide' || effect === 'scroll') {
       if (i <= slidesPerView) {
         style.transform = getTransformValue(i, false);
       } else if (i === cardNum - 1) {

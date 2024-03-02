@@ -8,6 +8,7 @@
       :transition-style="transitionStyle"
       :slides-per-view="slidesPerView"
       :space-between="spaceBetween"
+      ref="carouselContext"
     >
       <slot></slot>
     </carousel-context>
@@ -18,7 +19,7 @@
       :card-num="cardNum"
       :slides-per-view="slidesPerView"
       :index-counter="indexCounter"
-      @to="to"
+      @to="to($event)"
     >
     </carousel-dots>
     <carousel-arrow
@@ -31,16 +32,17 @@
   </div>
 </template>
 <script setup>
-import { ref, useSlots, onMounted, onUnmounted } from 'vue';
+import { ref, useSlots, onMounted, onUnmounted, watch } from 'vue';
 import CarouselContext from './CarouselContext.vue';
 import CarouselArrow from './CarouselArrow.vue';
 import CarouselDots from './CarouselDots.vue';
+import { throttle } from '../../util/util';
 
 /**
  * Props定义，用于接收父组件传递的属性值
  *
  * @prop {String} direction - 轮播图方向，可选值包括 "horizontal"、"vertical"。
- * @prop {String} effect - 轮播图效果，可选值包括 "slide"、"fade"。
+ * @prop {String} effect - 轮播图效果，可选值包括 "scroll"、"fade"、"slide"。
  * @prop {Boolean} turnDirection - 轮播方向，默认为 true。
  * @prop {String} showDots - 是否显示轮播点，可选值包括 "always"、"hover"、"never"。
  * @prop {String} showArrow - 是否显示轮播箭头，可选值包括 "always"、"hover"、"never"。
@@ -54,8 +56,6 @@ import CarouselDots from './CarouselDots.vue';
  * @prop {String} arrowPlacement - 轮播箭头位置，可选值包括 "start"、"center"、"end"、"top-left"、"top-right"、"bottom-left"、"bottom-right"，默认为 'center'。
  * @prop {String} dotType - 轮播指示点样式，可选值包括 "dot"、"line"，默认为 'dot'。
  * @prop {Number} delay - 延时播放时间，默认为 0。
- *
- * 待开发
  * @prop {Boolean} loop - 是否循环播放，默认为 true。
  */
 const props = defineProps({
@@ -70,7 +70,7 @@ const props = defineProps({
     type: String,
     default: 'fade',
     validator: (value) => {
-      return ['slide', 'fade'].includes(value);
+      return ['scroll', 'fade', 'slide'].includes(value);
     }
   },
   turnDirection: {
@@ -156,12 +156,19 @@ const props = defineProps({
   delay: {
     type: Number,
     default: 0
+  },
+  loop: {
+    type: Boolean,
+    default: true
   }
 });
+
+const emit = defineEmits(['change']);
 
 const cardNum = useSlots().default()[0].children.length;
 const indexCounter = ref(0);
 const playIntervalId = ref(null);
+const carouselContext = ref(null);
 
 const waitingForPlay = ref(false);
 /**
@@ -203,35 +210,53 @@ function checkVisibility() {
 // 滑动至前一页 (自动)
 function toPrev() {
   if (!checkVisibility()) return; // 如果不可见，直接返回
+  if (!props.loop && getCurrentIndex() === 0) return; // 如果不循环播放且当前页为第一页，直接返回
   indexCounter.value = (cardNum - getCurrentIndex() + 1) % cardNum;
 }
 
 // 滑动至后一页 (自动)
 function toNext() {
   if (!checkVisibility()) return; // 如果不可见，直接返回
+  if (!props.loop && getCurrentIndex() === cardNum - 1) return; // 如果不循环播放且当前页为最后一页，直接返回
   indexCounter.value = cardNum - getCurrentIndex() - 1;
 }
 
-// 滑动至某一页
-function to(index) {
+// 滑动至某一页（节流函数内部）
+function throttleTo(index) {
   stopPlay();
   indexCounter.value = (cardNum - index) % cardNum;
   startPlay();
 }
 
+// 滑动至某一页
+function to(index) {
+  throttle(throttleTo(index), getTransitionDuration());
+}
+
 // 滑动至前一页 (手动)
 function prev() {
+  if (!props.loop && getCurrentIndex() === 0) return; // 如果不循环播放且当前页为第一页，直接返回
   to(getCurrentIndex() - 1);
 }
 
 // 滑动至后一页 (手动)
 function next() {
+  if (!props.loop && getCurrentIndex() === cardNum - 1) return; // 如果不循环播放且当前页为最后一页，直接返回
   to(getCurrentIndex() + 1);
 }
 
 // 获取当前页
 function getCurrentIndex() {
   return (cardNum - indexCounter.value) % cardNum;
+}
+
+// 获取过渡时间（用于函数节流）
+function getTransitionDuration() {
+  const child = carouselContext.value.$el.children[0];
+  const computedStyles = window.getComputedStyle(child);
+  const transitionDuration = computedStyles.transitionDuration;
+  const durationInMilliseconds = parseFloat(transitionDuration) * 1000;
+  return durationInMilliseconds;
 }
 
 // 开始播放
@@ -256,12 +281,34 @@ function init() {
 onMounted(() => {
   setTimeout(init, props.delay);
   document.addEventListener('visibilitychange', handleVisibilityChange);
+  to = throttle(throttleTo, getTransitionDuration()); // 初始化节流后的 to 方法
+  /**
+   * 为什么要在页面加载完成时初始化节流后的 to 方法？
+   * 因为在页面加载完成之前，DOM 还未加载完成，无法获取到元素样式，所以无法获取到过渡时间，会导致节流后的 to 方法无法正常工作。
+   * 所以在页面加载完成之后，获取到过渡时间后再初始化节流后的 to 方法。
+   */
 });
 
 // 监听页面卸载事件
 onUnmounted(() => {
   stopPlay();
   document.removeEventListener('visibilitychange', handleVisibilityChange);
+});
+
+// 监听卡片变化
+watch(
+  () => indexCounter.value,
+  () => {
+    emit('change', (cardNum - indexCounter.value) % cardNum);
+  }
+);
+
+// 暴露给父组件的属性和方法
+defineExpose({
+  to,
+  prev,
+  next,
+  getCurrentIndex
 });
 </script>
 

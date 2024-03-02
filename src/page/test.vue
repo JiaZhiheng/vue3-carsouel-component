@@ -75,6 +75,7 @@
       </tr>
     </table>
     <carousel
+      ref="carousel"
       class="carousel"
       transitionStyle="all 300ms linear"
       :showDots="showDots"
@@ -84,8 +85,23 @@
       :dotType="dotType"
       :direction="direction"
       :effect="'slide'"
+      :delay="4000"
+      :loop="false"
+      @change="pageChange($event)"
     >
       <div v-for="item in cardList" :style="item.style"></div>
+
+      <template #arrow>
+        <div class="custom-arrow">
+          <button type="button" class="custom-arrow--left"> ⬅️ </button>
+          <button type="button" class="custom-arrow--right"> ➡️ </button>
+        </div>
+      </template>
+      <template #dots>
+        <ul class="custom-dots">
+          <li v-for="index of cardList" :key="index"></li>
+        </ul>
+      </template>
     </carousel>
   </div>
 </template>
@@ -95,94 +111,9 @@ import { ref } from 'vue';
 import Segmented from '../components/segmented/Segmented.vue';
 import Carousel from '../components/carousel/Carousel.vue';
 
-const cardList = ref([
-  {
-    style: {
-      backgroundColor: '#5c0011',
-      width: '100%',
-      height: '100%'
-    }
-  },
-  {
-    style: {
-      backgroundColor: '#610b00',
-      width: '100%',
-      height: '100%'
-    }
-  },
-  {
-    style: {
-      backgroundColor: '#612500',
-      width: '100%',
-      height: '100%'
-    }
-  },
-  {
-    style: {
-      backgroundColor: '#613400',
-      width: '100%',
-      height: '100%'
-    }
-  },
-  {
-    style: {
-      backgroundColor: '#614700',
-      width: '100%',
-      height: '100%'
-    }
-  },
-  {
-    style: {
-      backgroundColor: '#254000',
-      width: '100%',
-      height: '100%'
-    }
-  },
-  {
-    style: {
-      backgroundColor: '#092b00',
-      width: '100%',
-      height: '100%'
-    }
-  },
-  {
-    style: {
-      backgroundColor: '#002329',
-      width: '100%',
-      height: '100%'
-    }
-  },
-  {
-    style: {
-      backgroundColor: '#001d66',
-      width: '100%',
-      height: '100%'
-    }
-  },
-  {
-    style: {
-      backgroundColor: '#030852',
-      width: '100%',
-      height: '100%'
-    }
-  },
-  {
-    style: {
-      backgroundColor: '#120338',
-      width: '100%',
-      height: '100%'
-    }
-  },
-  {
-    style: {
-      backgroundColor: '#520339',
-      width: '100%',
-      height: '100%'
-    }
-  }
-]);
+const carousel = ref(null);
 
-const direction = ref('vertical'); // vertical | horizontal
+const direction = ref('horizontal'); // vertical | horizontal
 const showDots = ref('always');
 const showArrow = ref('always');
 const dotPlacement = ref('bottom');
@@ -303,8 +234,99 @@ const directionOption = ref([
 ]);
 
 function handleChange(value) {
-  console.log(value);
+  carousel.value.to(5);
 }
+
+function pageChange(index) {
+  console.log('pageChange', index);
+}
+
+const cardList = ref([
+  {
+    style: {
+      backgroundColor: '#5c0011',
+      width: '100%',
+      height: '100%'
+    }
+  },
+  {
+    style: {
+      backgroundColor: '#610b00',
+      width: '100%',
+      height: '100%'
+    }
+  },
+  {
+    style: {
+      backgroundColor: '#612500',
+      width: '100%',
+      height: '100%'
+    }
+  },
+  {
+    style: {
+      backgroundColor: '#613400',
+      width: '100%',
+      height: '100%'
+    }
+  },
+  {
+    style: {
+      backgroundColor: '#614700',
+      width: '100%',
+      height: '100%'
+    }
+  },
+  {
+    style: {
+      backgroundColor: '#254000',
+      width: '100%',
+      height: '100%'
+    }
+  },
+  {
+    style: {
+      backgroundColor: '#092b00',
+      width: '100%',
+      height: '100%'
+    }
+  },
+  {
+    style: {
+      backgroundColor: '#002329',
+      width: '100%',
+      height: '100%'
+    }
+  },
+  {
+    style: {
+      backgroundColor: '#001d66',
+      width: '100%',
+      height: '100%'
+    }
+  },
+  {
+    style: {
+      backgroundColor: '#030852',
+      width: '100%',
+      height: '100%'
+    }
+  },
+  {
+    style: {
+      backgroundColor: '#120338',
+      width: '100%',
+      height: '100%'
+    }
+  },
+  {
+    style: {
+      backgroundColor: '#520339',
+      width: '100%',
+      height: '100%'
+    }
+  }
+]);
 </script>
 
 <style scoped lang="scss">
