@@ -3,7 +3,7 @@
     <carousel-context
       :direction="direction"
       :effect="effect"
-      :card-num="cardNum"
+      :total="total"
       :index-counter="indexCounter"
       :transition-style="transitionStyle"
       :slides-per-view="slidesPerView"
@@ -12,27 +12,38 @@
     >
       <slot></slot>
     </carousel-context>
-    <carousel-dots
-      :show-dots="showDots"
-      :dot-type="dotType"
-      :dot-placement="dotPlacement"
-      :card-num="cardNum"
-      :slides-per-view="slidesPerView"
-      :index-counter="indexCounter"
-      @to="to($event)"
+    <slot
+      name="arrow"
+      :currentIndex="currentIndex"
+      :total="total"
+      :to="to"
+      :prev="prev"
+      :next="next"
     >
-    </carousel-dots>
-    <carousel-arrow
-      :show-arrow="showArrow"
-      :arrow-placement="arrowPlacement"
-      @prev="prev"
-      @next="next"
-    >
-    </carousel-arrow>
+      <carousel-arrow
+        :show-arrow="showArrow"
+        :arrow-placement="arrowPlacement"
+        @prev="prev"
+        @next="next"
+      >
+      </carousel-arrow>
+    </slot>
+    <slot name="dots" :currentIndex="currentIndex" :total="total" :to="to">
+      <carousel-dots
+        :show-dots="showDots"
+        :dot-type="dotType"
+        :dot-placement="dotPlacement"
+        :total="total"
+        :slides-per-view="slidesPerView"
+        :index-counter="indexCounter"
+        @to="to"
+      >
+      </carousel-dots>
+    </slot>
   </div>
 </template>
 <script setup>
-import { ref, useSlots, onMounted, onUnmounted, watch } from 'vue';
+import { ref, useSlots, onMounted, onUnmounted, watch, computed } from 'vue';
 import CarouselContext from './CarouselContext.vue';
 import CarouselArrow from './CarouselArrow.vue';
 import CarouselDots from './CarouselDots.vue';
@@ -165,10 +176,12 @@ const props = defineProps({
 
 const emit = defineEmits(['change']);
 
-const cardNum = useSlots().default()[0].children.length;
+const total = useSlots().default()[0].children.length;
 const indexCounter = ref(0);
 const playIntervalId = ref(null);
 const carouselContext = ref(null);
+
+const currentIndex = computed(() => (total - indexCounter.value) % total);
 
 const waitingForPlay = ref(false);
 /**
@@ -211,20 +224,20 @@ function checkVisibility() {
 function toPrev() {
   if (!checkVisibility()) return; // 如果不可见，直接返回
   if (!props.loop && getCurrentIndex() === 0) return; // 如果不循环播放且当前页为第一页，直接返回
-  indexCounter.value = (cardNum - getCurrentIndex() + 1) % cardNum;
+  indexCounter.value = (total - getCurrentIndex() + 1) % total;
 }
 
 // 滑动至后一页 (自动)
 function toNext() {
   if (!checkVisibility()) return; // 如果不可见，直接返回
-  if (!props.loop && getCurrentIndex() === cardNum - 1) return; // 如果不循环播放且当前页为最后一页，直接返回
-  indexCounter.value = cardNum - getCurrentIndex() - 1;
+  if (!props.loop && getCurrentIndex() === total - 1) return; // 如果不循环播放且当前页为最后一页，直接返回
+  indexCounter.value = total - getCurrentIndex() - 1;
 }
 
 // 滑动至某一页（节流函数内部）
 function throttleTo(index) {
   stopPlay();
-  indexCounter.value = (cardNum - index) % cardNum;
+  indexCounter.value = (total - index) % total;
   startPlay();
 }
 
@@ -241,13 +254,13 @@ function prev() {
 
 // 滑动至后一页 (手动)
 function next() {
-  if (!props.loop && getCurrentIndex() === cardNum - 1) return; // 如果不循环播放且当前页为最后一页，直接返回
+  if (!props.loop && getCurrentIndex() === total - 1) return; // 如果不循环播放且当前页为最后一页，直接返回
   to(getCurrentIndex() + 1);
 }
 
 // 获取当前页
 function getCurrentIndex() {
-  return (cardNum - indexCounter.value) % cardNum;
+  return currentIndex.value;
 }
 
 // 获取过渡时间（用于函数节流）
@@ -299,7 +312,7 @@ onUnmounted(() => {
 watch(
   () => indexCounter.value,
   () => {
-    emit('change', (cardNum - indexCounter.value) % cardNum);
+    emit('change', currentIndex.value);
   }
 );
 

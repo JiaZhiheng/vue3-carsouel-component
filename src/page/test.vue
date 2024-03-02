@@ -86,20 +86,72 @@
       :direction="direction"
       :effect="'slide'"
       :delay="4000"
-      :loop="false"
+      :loop="true"
       @change="pageChange($event)"
     >
       <div v-for="item in cardList" :style="item.style"></div>
-
-      <template #arrow>
+      <template #arrow="{ prev, next }">
         <div class="custom-arrow">
-          <button type="button" class="custom-arrow--left"> ⬅️ </button>
-          <button type="button" class="custom-arrow--right"> ➡️ </button>
+          <button type="button" class="custom-arrow--left" @click="prev">
+            <svg
+              data-v-552e6d0f=""
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              viewBox="0 0 512 512"
+            >
+              <path
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="48"
+                d="M244 400L100 256l144-144"
+              ></path>
+              <path
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="48"
+                d="M120 256h292"
+              ></path>
+            </svg>
+          </button>
+          <button type="button" class="custom-arrow--right" @click="next">
+            <svg
+              data-v-552e6d0f=""
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              viewBox="0 0 512 512"
+            >
+              <path
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="48"
+                d="M268 112l144 144l-144 144"
+              ></path>
+              <path
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="48"
+                d="M392 256H100"
+              ></path>
+            </svg>
+          </button>
         </div>
       </template>
-      <template #dots>
+      <template #dots="{ total, currentIndex, to }">
         <ul class="custom-dots">
-          <li v-for="index of cardList" :key="index"></li>
+          <li
+            v-for="index of total"
+            :key="index"
+            :class="{ ['is-active']: currentIndex === index - 1 }"
+            @click="to(index - 1)"
+          ></li>
         </ul>
       </template>
     </carousel>
@@ -366,5 +418,68 @@ table {
 .carousel {
   width: 550px;
   height: 350px;
+}
+
+/* 自定义样式 */
+.carousel-img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+}
+
+.custom-arrow {
+  display: flex;
+  position: absolute;
+  bottom: 25px;
+  right: 10px;
+}
+
+.custom-arrow button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  margin-right: 12px;
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-width: 0;
+  border-radius: 8px;
+  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.custom-arrow button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.custom-arrow button:active {
+  transform: scale(0.95);
+  transform-origin: center;
+}
+
+.custom-dots {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+}
+
+.custom-dots li {
+  display: inline-block;
+  width: 12px;
+  height: 4px;
+  margin: 0 3px;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.4);
+  transition: width 0.3s, background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.custom-dots li.is-active {
+  width: 40px;
+  background: #fff;
 }
 </style>

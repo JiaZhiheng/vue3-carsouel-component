@@ -6,24 +6,24 @@ A Vue 3 carousel component
 
 #### Carousel Props
 
-| 参数            | 说明                   | 类型                             | 默认值         |
-| --------------- | ---------------------- | -------------------------------- | -------------- |
-| direction       | 轮播图显示的方向       | `'horizontal' \| 'vertical'`     | `'horizontal'` |
-| effect          | 轮播图切换时的过渡效果 | `'scroll' \| 'fade' \| 'slide'`  | `'fade'`       |
-| turnDirection   | 轮播方向               | `boolean`                        | `true`         |
-| showDots        | 是否展示指示点         | `'always' \| 'hover' \| 'never'` | `'hover'`      |
-| showArrow       | 是否显示箭头按钮       | `'always' \| 'hover' \| 'never'` | `'hover'`      |
-| slidesPerView   | 每一页显示的轮播图数量 | `number`                         | `1`            |
-| spaceBetween    | 轮播图之间的间距       | `number`                         | `0`            |
-| interval        | 自动播放的间隔（ms）   | `number`                         | `4000`         |
-| transitionStyle | 过渡效果的样式         | `string`                         | `undefined`    |
-| autoplay        | 是否自动播放           | `boolean`                        | `true`         |
-| immediate       | 是否立即开始轮播       | `boolean`                        | `false`        |
-| dotPlacement    | 轮播指示点位置         | `string`                         | `'bottom'`     |
-| arrowPlacement  | 轮播箭头位置           | `string`                         | `'center'`     |
-| dotType         | 轮播指示点样式         | `'line' \| 'dot'`                | `'line'`       |
-| delay           | 延时播放时间           | `number`                         | `0`            |
-| loop            | 是否循环播放           | `boolean`                        | `true`         |
+| 参数            | 类型                             | 默认值         | 说明                   |
+| --------------- | -------------------------------- | -------------- | ---------------------- |
+| direction       | `'horizontal' \| 'vertical'`     | `'horizontal'` | 轮播图显示的方向       |
+| effect          | `'scroll' \| 'fade' \| 'slide'`  | `'fade'`       | 轮播图切换时的过渡效果 |
+| turnDirection   | `boolean`                        | `true`         | 轮播方向               |
+| showDots        | `'always' \| 'hover' \| 'never'` | `'hover'`      | 是否展示指示点         |
+| showArrow       | `'always' \| 'hover' \| 'never'` | `'hover'`      | 是否显示箭头按钮       |
+| slidesPerView   | `number`                         | `1`            | 每一页显示的轮播图数量 |
+| spaceBetween    | `number`                         | `0`            | 轮播图之间的间距       |
+| interval        | `number`                         | `4000`         | 自动播放的间隔（ms）   |
+| transitionStyle | `string`                         | `undefined`    | 过渡效果的样式         |
+| autoplay        | `boolean`                        | `true`         | 是否自动播放           |
+| immediate       | `boolean`                        | `false`        | 是否立即开始轮播       |
+| dotPlacement    | `string`                         | `'bottom'`     | 轮播指示点位置         |
+| arrowPlacement  | `string`                         | `'center'`     | 轮播箭头位置           |
+| dotType         | `'line' \| 'dot'`                | `'line'`       | 轮播指示点样式         |
+| delay           | `number`                         | `0`            | 延时播放时间           |
+| loop            | `boolean`                        | `true`         | 是否循环播放           |
 
 #### Carousel Methods
 

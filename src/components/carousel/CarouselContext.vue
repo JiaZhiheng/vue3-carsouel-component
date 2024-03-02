@@ -27,7 +27,7 @@ const props = defineProps({
       return ['scroll', 'fade', 'slide'].includes(value);
     }
   },
-  cardNum: Number,
+  total: Number,
   indexCounter: Number,
   transitionStyle: String,
   slidesPerView: Number,
@@ -39,7 +39,7 @@ const cardSize = `calc(${100 / props.slidesPerView}% - ${
 }px)`;
 
 const config = generateCardArray(
-  props.cardNum,
+  props.total,
   props.slidesPerView,
   props.direction,
   props.effect,
@@ -47,7 +47,7 @@ const config = generateCardArray(
 );
 
 // 生成卡片数组
-function generateCardArray(cardNum, slidesPerView, direction, effect, spaceBetween) {
+function generateCardArray(total, slidesPerView, direction, effect, spaceBetween) {
   const cardArray = [];
   function getTransformValue(index, isLast) {
     const offset = isLast
@@ -55,12 +55,12 @@ function generateCardArray(cardNum, slidesPerView, direction, effect, spaceBetwe
       : `calc(${index * 100}% + ${index * spaceBetween}px)`;
     return direction === 'horizontal' ? `translateX(${offset})` : `translateY(${offset})`;
   }
-  for (let i = 0; i < cardNum; i++) {
+  for (let i = 0; i < total; i++) {
     const style = { visibility: 'visible' };
     if (effect === 'slide' || effect === 'scroll') {
       if (i <= slidesPerView) {
         style.transform = getTransformValue(i, false);
-      } else if (i === cardNum - 1) {
+      } else if (i === total - 1) {
         style.transform = getTransformValue(0, true);
       } else {
         style.display = 'none';

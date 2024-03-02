@@ -11,7 +11,7 @@
 
 <script setup>
 const props = defineProps({
-  cardNum: Number,
+  total: Number,
   slidesPerView: Number,
   indexCounter: Number,
   dotPlacement: String,
@@ -21,11 +21,11 @@ const props = defineProps({
 
 const emit = defineEmits(['to']);
 
-const config = generateCardArray(props.cardNum, props.slidesPerView);
+const config = generateCardArray(props.total, props.slidesPerView);
 
-function generateCardArray(cardNum, slidesPerView) {
+function generateCardArray(total, slidesPerView) {
   const cardArray = [];
-  for (let i = 0; i < cardNum; i++) {
+  for (let i = 0; i < total; i++) {
     i < slidesPerView ? cardArray.push('current') : cardArray.push('');
   }
   return cardArray;
@@ -50,6 +50,7 @@ function to(index) {
     &.dots {
       position: absolute;
       display: flex;
+      gap: 8px;
       z-index: 1;
       list-style: none;
       margin: 0;
@@ -58,42 +59,30 @@ function to(index) {
       transition: all 0.3s;
 
       .line {
-        margin: 0 4px;
+        display: block;
+        width: 16px;
+        height: 4px;
+        border-radius: 2px;
+        background: rgba(255, 255, 255, 0.3);
+        transition: all 0.3s;
         cursor: pointer;
 
-        &::before {
-          content: '';
-          display: block;
-          width: 16px;
-          height: 4px;
-          border-radius: 2px;
-          background: rgba(255, 255, 255, 0.3);
-          transition: all 0.3s;
-        }
-
-        &.current::before {
+        &.current {
           width: 24px;
           background: rgba(255, 255, 255, 1);
         }
       }
 
       .dot {
-        margin: 0 4px;
+        display: block;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        transition: all 0.3s;
         cursor: pointer;
 
-        &::before {
-          content: '';
-          display: block;
-          width: 8px;
-          height: 8px;
-          border-radius: 50%;
-          background: rgba(255, 255, 255, 0.3);
-          transition: all 0.3s;
-        }
-
-        &.current::before {
-          width: 8px;
-          height: 8px;
+        &.current {
           background: rgba(255, 255, 255, 1);
         }
       }
@@ -104,6 +93,7 @@ function to(index) {
     &.dots {
       position: absolute;
       display: flex;
+      gap: 8px;
       z-index: 1;
       list-style: none;
       margin: 0;
@@ -112,42 +102,30 @@ function to(index) {
       transition: all 0.3s;
 
       .line {
-        margin: 0 4px;
+        display: block;
+        width: 16px;
+        height: 4px;
+        border-radius: 2px;
+        background: rgba(255, 255, 255, 0.3);
+        transition: all 0.3s;
         cursor: pointer;
 
-        &::before {
-          content: '';
-          display: block;
-          width: 16px;
-          height: 4px;
-          border-radius: 2px;
-          background: rgba(255, 255, 255, 0.3);
-          transition: all 0.3s;
-        }
-
-        &.current::before {
+        &.current {
           width: 24px;
           background: rgba(255, 255, 255, 1);
         }
       }
 
       .dot {
-        margin: 0 4px;
+        display: block;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        transition: all 0.3s;
         cursor: pointer;
 
-        &::before {
-          content: '';
-          display: block;
-          width: 8px;
-          height: 8px;
-          border-radius: 50%;
-          background: rgba(255, 255, 255, 0.3);
-          transition: all 0.3s;
-        }
-
-        &.current::before {
-          width: 8px;
-          height: 8px;
+        &.current {
           background: rgba(255, 255, 255, 1);
         }
       }
@@ -213,6 +191,7 @@ function to(index) {
     &.dots {
       position: absolute;
       display: flex;
+      gap: 8px;
       flex-direction: column;
       z-index: 1;
       list-style: none;
@@ -222,42 +201,30 @@ function to(index) {
       transition: all 0.3s;
 
       .line {
-        margin: 4px 0;
+        display: block;
+        width: 4px;
+        height: 16px;
+        border-radius: 2px;
+        background: rgba(255, 255, 255, 0.3);
+        transition: all 0.3s;
         cursor: pointer;
 
-        &::before {
-          content: '';
-          display: block;
-          width: 4px;
-          height: 16px;
-          border-radius: 2px;
-          background: rgba(255, 255, 255, 0.3);
-          transition: all 0.3s;
-        }
-
-        &.current::before {
+        &.current {
           height: 24px;
           background: rgba(255, 255, 255, 1);
         }
       }
 
       .dot {
-        margin: 4px 0;
+        display: block;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        transition: all 0.3s;
         cursor: pointer;
 
-        &::before {
-          content: '';
-          display: block;
-          width: 8px;
-          height: 8px;
-          border-radius: 50%;
-          background: rgba(255, 255, 255, 0.3);
-          transition: all 0.3s;
-        }
-
-        &.current::before {
-          width: 8px;
-          height: 8px;
+        &.current {
           background: rgba(255, 255, 255, 1);
         }
       }
@@ -268,6 +235,7 @@ function to(index) {
     &.dots {
       position: absolute;
       display: flex;
+      gap: 8px;
       flex-direction: column;
       z-index: 1;
       list-style: none;
@@ -277,42 +245,30 @@ function to(index) {
       transition: all 0.3s;
 
       .line {
-        margin: 4px 0;
+        display: block;
+        width: 4px;
+        height: 16px;
+        border-radius: 2px;
+        background: rgba(255, 255, 255, 0.3);
+        transition: all 0.3s;
         cursor: pointer;
 
-        &::before {
-          content: '';
-          display: block;
-          width: 4px;
-          height: 16px;
-          border-radius: 2px;
-          background: rgba(255, 255, 255, 0.3);
-          transition: all 0.3s;
-        }
-
-        &.current::before {
+        &.current {
           height: 24px;
           background: rgba(255, 255, 255, 1);
         }
       }
 
       .dot {
-        margin: 4px 0;
+        display: block;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        transition: all 0.3s;
         cursor: pointer;
 
-        &::before {
-          content: '';
-          display: block;
-          width: 8px;
-          height: 8px;
-          border-radius: 50%;
-          background: rgba(255, 255, 255, 0.3);
-          transition: all 0.3s;
-        }
-
-        &.current::before {
-          width: 8px;
-          height: 8px;
+        &.current {
           background: rgba(255, 255, 255, 1);
         }
       }
