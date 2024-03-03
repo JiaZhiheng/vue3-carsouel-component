@@ -12,27 +12,9 @@
 </template>
 
 <script setup>
-const props = defineProps({
-  direction: {
-    type: String,
-    default: 'horizontal',
-    validator: (value) => {
-      return ['horizontal', 'vertical'].includes(value);
-    }
-  },
-  effect: {
-    type: String,
-    default: 'fade',
-    validator: (value) => {
-      return ['scroll', 'fade', 'slide'].includes(value);
-    }
-  },
-  total: Number,
-  indexCounter: Number,
-  transitionStyle: String,
-  slidesPerView: Number,
-  spaceBetween: Number
-});
+import { carouselContextProps } from './props';
+
+const props = defineProps(carouselContextProps);
 
 const cardSize = `calc(${100 / props.slidesPerView}% - ${
   (props.spaceBetween * (props.slidesPerView - 1)) / props.slidesPerView

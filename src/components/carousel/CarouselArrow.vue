@@ -34,11 +34,9 @@
 </template>
 
 <script setup>
-const props = defineProps({
-  showArrow: String,
-  arrowPlacement: String
-});
+import { carouselArrowProps } from './props';
 
+const props = defineProps(carouselArrowProps);
 const emit = defineEmits(['prev', 'next']);
 
 function handlePrev() {

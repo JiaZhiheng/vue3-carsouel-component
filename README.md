@@ -50,10 +50,12 @@ A Vue 3 carousel component
 
 ### 后续更新计划
 
-Slot arrow dot
-
-单元测试
+代码整理 文件结构整理
 
 Vitepress 文档迁移
+
+移植 TDesign 展示代码组件
+
+单元测试
 
 TypeScript

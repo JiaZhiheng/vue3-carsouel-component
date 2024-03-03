@@ -10,18 +10,11 @@
 </template>
 
 <script setup>
-const props = defineProps({
-  total: Number,
-  slidesPerView: Number,
-  indexCounter: Number,
-  dotPlacement: String,
-  dotType: String,
-  showDots: String
-});
+import { carouselDotsProps } from './props';
 
-const emit = defineEmits(['to']);
-
+const props = defineProps(carouselDotsProps);
 const config = generateCardArray(props.total, props.slidesPerView);
+const emit = defineEmits(['to']);
 
 function generateCardArray(total, slidesPerView) {
   const cardArray = [];
