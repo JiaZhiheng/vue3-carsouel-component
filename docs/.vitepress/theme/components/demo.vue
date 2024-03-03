@@ -93,54 +93,10 @@
       <template #arrow="{ prev, next }">
         <div class="custom-arrow">
           <button type="button" class="custom-arrow--left" @click="prev">
-            <svg
-              data-v-552e6d0f=""
-              xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-              viewBox="0 0 512 512"
-            >
-              <path
-                fill="none"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="48"
-                d="M244 400L100 256l144-144"
-              ></path>
-              <path
-                fill="none"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="48"
-                d="M120 256h292"
-              ></path>
-            </svg>
+            <img src="../../../assets/custom-arrow-prev.svg" alt="prev" />
           </button>
           <button type="button" class="custom-arrow--right" @click="next">
-            <svg
-              data-v-552e6d0f=""
-              xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-              viewBox="0 0 512 512"
-            >
-              <path
-                fill="none"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="48"
-                d="M268 112l144 144l-144 144"
-              ></path>
-              <path
-                fill="none"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="48"
-                d="M392 256H100"
-              ></path>
-            </svg>
+            <img src="../../../assets/custom-arrow-next.svg" alt="next" />
           </button>
         </div>
       </template>
@@ -160,8 +116,8 @@
 
 <script setup>
 import { ref } from 'vue';
-import Segmented from '../components/segmented/Segmented.vue';
-import Carousel from '../components/carousel/Carousel.vue';
+import Segmented from '../../../../src/components/segmented/Segmented.vue';
+import Carousel from '../../../../src/components/carousel/Carousel.vue';
 
 const carousel = ref(null);
 
@@ -384,9 +340,7 @@ const cardList = ref([
 <style scoped lang="scss">
 .wrap {
   display: flex;
-  margin: 200px auto 0;
-  gap: 20px;
-  width: fit-content;
+  flex-direction: column;
 }
 
 table {

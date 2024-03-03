@@ -1,34 +1,10 @@
 <template>
   <div :class="[showArrow, arrowPlacement]">
     <div class="arrow arrow-prev" @click="handlePrev">
-      <svg
-        width="1.5em"
-        height="1.5em"
-        viewBox="0 0 16 16"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M9.5397 3.53998L10.4589 4.45922L6.91856 7.9996L10.4589 11.54L9.5397 12.4592L5.08008 7.9996L9.5397 3.53998Z"
-          fill="#fff"
-          fill-opacity="0.9"
-        ></path>
-      </svg>
+      <img src="../../assets/arrow-prev.svg" alt="prev" />
     </div>
     <div class="arrow arrow-next" @click="handleNext">
-      <svg
-        width="1.5em"
-        height="1.5em"
-        viewBox="0 0 16 16"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M6.4603 12.4592L5.54106 11.54L9.08144 7.99961L5.54106 4.45923L6.4603 3.53999L10.9199 7.99961L6.4603 12.4592Z"
-          fill="#fff"
-          fill-opacity="0.9"
-        ></path>
-      </svg>
+      <img src="../../assets/arrow-next.svg" alt="next" />
     </div>
   </div>
 </template>
