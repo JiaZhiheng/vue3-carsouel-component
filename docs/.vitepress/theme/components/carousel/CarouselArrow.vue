@@ -1,10 +1,10 @@
 <template>
   <div :class="[showArrow, arrowPlacement]">
     <div class="arrow arrow-prev" @click="handlePrev">
-      <img src="../../../../assets/custom-arrow-prev.svg" alt="prev" />
+      <img src="./assets/arrow-prev.svg" alt="prev" />
     </div>
     <div class="arrow arrow-next" @click="handleNext">
-      <img src="../../../../assets/custom-arrow-next.svg" alt="next" />
+      <img src="./assets/arrow-next.svg" alt="next" />
     </div>
   </div>
 </template>

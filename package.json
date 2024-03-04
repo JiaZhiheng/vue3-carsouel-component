@@ -35,6 +35,7 @@
     }
   },
   "devDependencies": {
+    "rollup-plugin-visualizer": "^5.12.0",
     "sass": "^1.71.1",
     "vitepress": "^1.0.0-rc.44"
   },

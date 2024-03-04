@@ -93,10 +93,10 @@
       <template #arrow="{ prev, next }">
         <div class="custom-arrow">
           <button type="button" class="custom-arrow--left" @click="prev">
-            <img src="../../../assets/custom-arrow-prev.svg" alt="prev" />
+            <img src="../components/carousel/assets/custom-arrow-prev.svg" alt="prev" />
           </button>
           <button type="button" class="custom-arrow--right" @click="next">
-            <img src="../../../assets/custom-arrow-next.svg" alt="next" />
+            <img src="../components/carousel/assets/custom-arrow-next.svg" alt="next" />
           </button>
         </div>
       </template>
