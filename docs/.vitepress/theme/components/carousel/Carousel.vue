@@ -200,6 +200,17 @@ defineExpose({
 </script>
 
 <style scoped lang="scss">
+// *,
+// ::before,
+// ::after {
+//   box-sizing: border-box;
+// }
+
+// a {
+//   color: #fff;
+//   text-decoration: none;
+// }
+
 .container {
   position: relative;
 }

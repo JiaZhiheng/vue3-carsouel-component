@@ -150,5 +150,5 @@ const getCarouselComponent = (type) => {
       margin: 0 8px;
     }
   }
-}
-</style>
+}</style
+>../../../../src/components/card/card.config

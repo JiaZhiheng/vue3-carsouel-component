@@ -116,8 +116,8 @@
 
 <script setup>
 import { ref } from 'vue';
-import Segmented from '../../../../src/components/segmented/Segmented.vue';
-import Carousel from '../../../../src/components/carousel/Carousel.vue';
+import Segmented from '../components/segmented/Segmented.vue';
+import Carousel from '../components/carousel/Carousel.vue';
 
 const carousel = ref(null);
 
@@ -435,5 +435,5 @@ table {
 .custom-dots li.is-active {
   width: 40px;
   background: #fff;
-}
-</style>
+}</style
+>../components/segmented/Segmented.vue../components/carousel/Carousel.vue

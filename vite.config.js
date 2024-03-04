@@ -14,7 +14,7 @@ export default defineConfig({
   },
   build: {
     lib: {
-      entry: resolve('src/components/carousel/index.js'),
+      entry: resolve('docs/.vitepress/theme/components/carousel/index.js'),
       name: 'carousel',
       fileName: (format) => `carousel.${format}.js`,
       formats: ['es', 'umd', 'cjs', 'iife']
