@@ -4,6 +4,7 @@ import { defineConfig } from 'vitepress';
 export default defineConfig({
   title: 'vue3-carousel-component',
   description: 'A Vue 3 carousel component',
+  base: '/vue3-carsouel-component/', // GitHub部署配置
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
