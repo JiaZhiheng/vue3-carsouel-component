@@ -52,8 +52,6 @@ A Vue 3 carousel component
 
 代码整理 文件结构整理
 
-移植 TDesign 展示代码组件
-
 单元测试
 
 TypeScript

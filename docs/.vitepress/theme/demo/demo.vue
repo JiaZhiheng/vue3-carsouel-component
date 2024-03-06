@@ -435,5 +435,5 @@ table {
 .custom-dots li.is-active {
   width: 40px;
   background: #fff;
-}</style
->../components/segmented/Segmented.vue../components/carousel/Carousel.vue
+}
+</style>

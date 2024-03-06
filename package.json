@@ -37,10 +37,14 @@
   "devDependencies": {
     "rollup-plugin-visualizer": "^5.12.0",
     "sass": "^1.71.1",
-    "vitepress": "^1.0.0-rc.44"
+    "vitepress": "^1.0.0-rc.44",
+    "prettier": "2.8.1",
+    "tdesign-site-components": "^0.14.0"
   },
   "scripts": {
+    "dev": "vite",
     "build": "vite build",
+    "preview": "vite preview",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs"
