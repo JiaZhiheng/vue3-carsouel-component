@@ -1,7 +1,8 @@
 import DefaultTheme from 'vitepress/theme';
 import BaseUsage from './util/base-usage.vue';
-import Carousel from '../../../dist/carousel.es';
-import '../../../dist/style.css';
+// import Carousel from '../../../dist/carousel.es';
+// import '../../../dist/style.css';
+import Carousel from '../../../src/components/carousel/Carousel.vue';
 import Basic from './example/basic/basic.vue';
 import Arrow from './example/arrow/arrow.vue';
 
