@@ -1,0 +1,154 @@
+[
+  {
+    "name": "direction",
+    "type": "enum",
+    "defaultValue": "horizontal",
+    "options": [
+      {
+        "label": "horizontal",
+        "value": "horizontal"
+      },
+      {
+        "label": "vertical",
+        "value": "vertical"
+      }
+    ]
+  },
+  {
+    "name": "effect",
+    "type": "enum",
+    "defaultValue": "fade",
+    "options": [
+      {
+        "label": "scroll",
+        "value": "scroll"
+      },
+      {
+        "label": "fade",
+        "value": "fade"
+      },
+      {
+        "label": "slide",
+        "value": "slide"
+      }
+    ]
+  },
+  {
+    "name": "showDots",
+    "type": "enum",
+    "defaultValue": "always",
+    "options": [
+      {
+        "label": "always",
+        "value": "always"
+      },
+      {
+        "label": "hover",
+        "value": "hover"
+      },
+      {
+        "label": "never",
+        "value": "never"
+      }
+    ]
+  },
+  {
+    "name": "showArrow",
+    "type": "enum",
+    "defaultValue": "always",
+    "options": [
+      {
+        "label": "always",
+        "value": "always"
+      },
+      {
+        "label": "hover",
+        "value": "hover"
+      },
+      {
+        "label": "never",
+        "value": "never"
+      }
+    ]
+  },
+  {
+    "name": "dotPlacement",
+    "type": "enum",
+    "defaultValue": "bottom",
+    "options": [
+      {
+        "label": "top",
+        "value": "top"
+      },
+      {
+        "label": "bottom",
+        "value": "bottom"
+      },
+      {
+        "label": "left",
+        "value": "left"
+      },
+      {
+        "label": "right",
+        "value": "right"
+      },
+      {
+        "label": "top-left",
+        "value": "top-left"
+      },
+      {
+        "label": "top-right",
+        "value": "top-right"
+      },
+      {
+        "label": "bottom-left",
+        "value": "bottom-left"
+      },
+      {
+        "label": "bottom-right",
+        "value": "bottom-right"
+      }
+    ]
+  },
+  {
+    "name": "arrowPlacement",
+    "type": "enum",
+    "defaultValue": "center",
+    "options": [
+      {
+        "label": "start",
+        "value": "start"
+      },
+      {
+        "label": "center",
+        "value": "center"
+      },
+      {
+        "label": "end",
+        "value": "end"
+      },
+      {
+        "label": "top-left",
+        "value": "top-left"
+      },
+      {
+        "label": "top-right",
+        "value": "top-right"
+      },
+      {
+        "label": "bottom-left",
+        "value": "bottom-left"
+      },
+      {
+        "label": "bottom-right",
+        "value": "bottom-right"
+      }
+    ]
+  },
+  {
+    "name": "turnDirection",
+    "type": "Boolean",
+    "defaultValue": true,
+    "options": []
+  }
+]

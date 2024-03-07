@@ -58,6 +58,7 @@ function to(index) {
         border-radius: 2px;
         background: rgba(255, 255, 255, 0.3);
         transition: all 0.3s;
+        margin: 0;
         cursor: pointer;
 
         &.current {
@@ -101,6 +102,7 @@ function to(index) {
         border-radius: 2px;
         background: rgba(255, 255, 255, 0.3);
         transition: all 0.3s;
+        margin: 0;
         cursor: pointer;
 
         &.current {

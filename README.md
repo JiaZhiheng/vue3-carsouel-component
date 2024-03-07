@@ -52,6 +52,12 @@ A Vue 3 carousel component
 
 代码整理 文件结构整理
 
+css 瘦身
+
+重构代码展示组件 抽离到 npm
+
+脱离 tdesign
+
 单元测试
 
 TypeScript
