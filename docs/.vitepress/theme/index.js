@@ -10,10 +10,6 @@ import Arrow from './example/arrow/arrow.vue';
 import 'tdesign-site-components';
 import 'tdesign-site-components/lib/styles/style.css';
 
-// import site webComponents
-import 'tdesign-site-components';
-import 'tdesign-site-components/lib/styles/style.css';
-
 import { registerLocaleChange } from 'tdesign-site-components';
 
 registerLocaleChange();
