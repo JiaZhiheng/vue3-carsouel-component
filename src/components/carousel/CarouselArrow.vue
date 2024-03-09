@@ -25,7 +25,7 @@ function handleNext() {
 </script>
 
 <style scoped lang="scss">
-@mixin arrow($position, $direction: horizontal, $opacity: 1) {
+@mixin arrow($position, $direction, $opacity: 1) {
   z-index: 1;
   display: flex;
   align-items: center;
@@ -59,7 +59,7 @@ function handleNext() {
 @mixin arrowPlacement($direction, $showArrow) {
   &.start {
     .arrow {
-      @include arrow(absolute);
+      @include arrow(absolute, $direction);
       @if $direction == horizontal {
         top: 10px;
         bottom: auto;
@@ -94,7 +94,7 @@ function handleNext() {
   }
   &.center {
     .arrow {
-      @include arrow(absolute);
+      @include arrow(absolute, $direction);
       @if $direction == horizontal {
         top: 50%;
         bottom: 50%;
@@ -129,7 +129,7 @@ function handleNext() {
   }
   &.end {
     .arrow {
-      @include arrow(absolute);
+      @include arrow(absolute, $direction);
       @if $direction == horizontal {
         top: auto;
         bottom: 10px;
@@ -163,44 +163,44 @@ function handleNext() {
     }
   }
   &.top-left {
-    @include arrow-group(horizontal, $showArrow);
+    @include arrow-group($direction, $showArrow);
     top: 10px;
     left: 10px;
     .arrow {
-      @include arrow(relative, horizontal, 1);
+      @include arrow(relative, $direction, 1);
       &:hover {
         background: rgba(255, 255, 255, 0.3);
       }
     }
   }
   &.top-right {
-    @include arrow-group(horizontal, $showArrow);
+    @include arrow-group($direction, $showArrow);
     top: 10px;
     right: 10px;
     .arrow {
-      @include arrow(relative, horizontal, 1);
+      @include arrow(relative, $direction, 1);
       &:hover {
         background: rgba(255, 255, 255, 0.3);
       }
     }
   }
   &.bottom-left {
-    @include arrow-group(horizontal, $showArrow);
+    @include arrow-group($direction, $showArrow);
     bottom: 10px;
     left: 10px;
     .arrow {
-      @include arrow(relative, horizontal, 1);
+      @include arrow(relative, $direction, 1);
       &:hover {
         background: rgba(255, 255, 255, 0.3);
       }
     }
   }
   &.bottom-right {
-    @include arrow-group(horizontal, $showArrow);
+    @include arrow-group($direction, $showArrow);
     bottom: 10px;
     right: 10px;
     .arrow {
-      @include arrow(relative, horizontal, 1);
+      @include arrow(relative, $direction, 1);
       &:hover {
         background: rgba(255, 255, 255, 0.3);
       }
