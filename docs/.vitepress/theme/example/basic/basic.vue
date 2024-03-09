@@ -6,7 +6,7 @@
     @panel-change="onPanelChange"
   >
     <template #swiper="{ configProps }">
-      <div :style="{ width: '414px' }">
+      <div :style="{ width: '800' }">
         <carousel
           ref="carousel"
           class="carousel"
@@ -61,7 +61,7 @@ function pageChange(index) {}
 
 <style scoped>
 .carousel {
-  width: 414px;
-  height: 240px;
-}</style
->./basic.card.js
+  width: 640px;
+  height: 360px;
+}
+</style>

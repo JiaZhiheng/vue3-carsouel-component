@@ -17,7 +17,7 @@
   </td-doc-usage>
 </template>
 
-<script setup lang="jsx">
+<script setup>
 import { ref, compile, onMounted, computed, onBeforeUnmount, watchEffect } from 'vue';
 import * as prettier from 'prettier/standalone';
 import * as parserHtml from 'prettier/parser-html';

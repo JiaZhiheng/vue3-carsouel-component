@@ -34,289 +34,136 @@ function to(index) {
 </script>
 
 <style scoped lang="scss">
-.horizontal {
-  .never {
-    display: none;
-  }
+@mixin dots($direction, $opacity) {
+  position: absolute;
+  display: flex;
+  gap: 8px;
+  z-index: 1;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  transition: all 0.3s;
+  flex-direction: if($direction == horizontal, row, column);
+  opacity: $opacity;
+}
 
-  .hover {
-    &.dots {
-      position: absolute;
-      display: flex;
-      gap: 8px;
-      z-index: 1;
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      opacity: 0;
-      transition: all 0.3s;
-
-      .line {
-        display: block;
-        width: 16px;
-        height: 4px;
-        border-radius: 2px;
-        background: rgba(255, 255, 255, 0.3);
-        transition: all 0.3s;
-        margin: 0;
-        cursor: pointer;
-
-        &.current {
-          width: 24px;
-          background: rgba(255, 255, 255, 1);
-        }
-      }
-
-      .dot {
-        display: block;
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.3);
-        transition: all 0.3s;
-        cursor: pointer;
-
-        &.current {
-          background: rgba(255, 255, 255, 1);
-        }
-      }
-    }
-  }
-
-  .always {
-    &.dots {
-      position: absolute;
-      display: flex;
-      gap: 8px;
-      z-index: 1;
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      opacity: 1;
-      transition: all 0.3s;
-
-      .line {
-        display: block;
-        width: 16px;
-        height: 4px;
-        border-radius: 2px;
-        background: rgba(255, 255, 255, 0.3);
-        transition: all 0.3s;
-        margin: 0;
-        cursor: pointer;
-
-        &.current {
-          width: 24px;
-          background: rgba(255, 255, 255, 1);
-        }
-      }
-
-      .dot {
-        display: block;
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.3);
-        transition: all 0.3s;
-        cursor: pointer;
-
-        &.current {
-          background: rgba(255, 255, 255, 1);
-        }
-      }
-    }
-  }
-
-  @mixin dotsPosition($type: line) {
-    &.top:has(> .#{$type}) {
-      left: 50%;
-      top: 18px;
-      transform: translateX(-50%) translateY(-50%);
-    }
-    &.bottom:has(> .#{$type}) {
-      left: 50%;
-      bottom: 18px;
-      transform: translateX(-50%) translateY(50%);
-    }
-    &.left:has(> .#{$type}) {
-      top: 50%;
-      left: 18px;
-      transform: translateX(-50%) translateY(-50%) rotate(90deg);
-    }
-    &.right:has(> .#{$type}) {
-      top: 50%;
-      right: 18px;
-      transform: translateX(50%) translateY(-50%) rotate(90deg);
-    }
-    &.top-left:has(> .#{$type}) {
-      top: 18px;
-      left: 18px;
-    }
-    &.top-right:has(> .#{$type}) {
-      top: 18px;
-      right: 18px;
-    }
-    &.bottom-left:has(> .#{$type}) {
-      bottom: 18px;
-      left: 18px;
-    }
-    &.bottom-right:has(> .#{$type}) {
-      bottom: 18px;
-      right: 18px;
-    }
-  }
-
-  .hover.dots,
-  .always.dots {
-    @include dotsPosition(line);
-    @include dotsPosition(dot);
+@mixin line($direction) {
+  display: block;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.3);
+  transition: all 0.3s;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  width: if($direction == horizontal, 16px, 4px);
+  height: if($direction == horizontal, 4px, 16px);
+  &.current {
+    width: if($direction == horizontal, 24px, 4px);
+    height: if($direction == horizontal, 4px, 24px);
+    background: rgba(255, 255, 255, 1);
   }
 }
 
-.horizontal.container:hover .dots {
-  opacity: 1;
+@mixin dot {
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transition: all 0.3s;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  &.current {
+    background: rgba(255, 255, 255, 1);
+  }
+}
+
+@mixin dotPlacement($direction) {
+  &.top {
+    left: 50%;
+    top: 18px;
+    transform: translateX(-50%) translateY(-50%) rotate(if($direction == horizontal, 0deg, 90deg));
+  }
+  &.bottom {
+    left: 50%;
+    bottom: 18px;
+    transform: translateX(-50%) translateY(50%) rotate(if($direction == horizontal, 0deg, 90deg));
+  }
+  &.left {
+    top: 50%;
+    left: 18px;
+    transform: translateX(-50%) translateY(-50%) rotate(if($direction == horizontal, 90deg, 0deg));
+  }
+  &.right {
+    top: 50%;
+    right: 18px;
+    transform: translateX(50%) translateY(-50%) rotate(if($direction == horizontal, 90deg, 0deg));
+  }
+  &.top-left {
+    top: 18px;
+    left: 18px;
+  }
+  &.top-right {
+    top: 18px;
+    right: 18px;
+  }
+  &.bottom-left {
+    bottom: 18px;
+    left: 18px;
+  }
+  &.bottom-right {
+    bottom: 18px;
+    right: 18px;
+  }
+}
+
+@mixin showDots($direction, $opacity) {
+  &.dots {
+    @include dots($direction, $opacity);
+
+    .line {
+      @include line($direction);
+    }
+
+    .dot {
+      @include dot;
+    }
+  }
+}
+
+@mixin direction($direction) {
+  .hover {
+    @include showDots($direction, 0);
+  }
+
+  .always {
+    @include showDots($direction, 1);
+  }
+
+  .dots {
+    @include dotPlacement($direction);
+  }
+}
+
+.horizontal {
+  @include direction(horizontal);
 }
 
 .vertical {
-  .never {
-    display: none;
-  }
-
-  .hover {
-    &.dots {
-      position: absolute;
-      display: flex;
-      gap: 8px;
-      flex-direction: column;
-      z-index: 1;
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      opacity: 0;
-      transition: all 0.3s;
-
-      .line {
-        display: block;
-        width: 4px;
-        height: 16px;
-        border-radius: 2px;
-        background: rgba(255, 255, 255, 0.3);
-        transition: all 0.3s;
-        cursor: pointer;
-
-        &.current {
-          height: 24px;
-          background: rgba(255, 255, 255, 1);
-        }
-      }
-
-      .dot {
-        display: block;
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.3);
-        transition: all 0.3s;
-        cursor: pointer;
-
-        &.current {
-          background: rgba(255, 255, 255, 1);
-        }
-      }
-    }
-  }
-
-  .always {
-    &.dots {
-      position: absolute;
-      display: flex;
-      gap: 8px;
-      flex-direction: column;
-      z-index: 1;
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      opacity: 1;
-      transition: all 0.3s;
-
-      .line {
-        display: block;
-        width: 4px;
-        height: 16px;
-        border-radius: 2px;
-        background: rgba(255, 255, 255, 0.3);
-        transition: all 0.3s;
-        cursor: pointer;
-
-        &.current {
-          height: 24px;
-          background: rgba(255, 255, 255, 1);
-        }
-      }
-
-      .dot {
-        display: block;
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.3);
-        transition: all 0.3s;
-        cursor: pointer;
-
-        &.current {
-          background: rgba(255, 255, 255, 1);
-        }
-      }
-    }
-  }
-
-  @mixin dotsPosition($type: line) {
-    &.top:has(> .#{$type}) {
-      left: 50%;
-      top: 18px;
-      transform: translateX(-50%) translateY(-50%) rotate(-90deg);
-    }
-    &.bottom:has(> .#{$type}) {
-      left: 50%;
-      bottom: 18px;
-      transform: translateX(-50%) translateY(50%) rotate(-90deg);
-    }
-    &.left:has(> .#{$type}) {
-      top: 50%;
-      left: 18px;
-      transform: translateX(-50%) translateY(-50%);
-    }
-    &.right:has(> .#{$type}) {
-      top: 50%;
-      right: 18px;
-      transform: translateX(50%) translateY(-50%);
-    }
-    &.top-left:has(> .#{$type}) {
-      top: 18px;
-      left: 18px;
-    }
-    &.top-right:has(> .#{$type}) {
-      top: 18px;
-      right: 18px;
-    }
-    &.bottom-left:has(> .#{$type}) {
-      bottom: 18px;
-      left: 18px;
-    }
-    &.bottom-right:has(> .#{$type}) {
-      bottom: 18px;
-      right: 18px;
-    }
-  }
-
-  .hover.dots,
-  .always.dots {
-    @include dotsPosition(line);
-    @include dotsPosition(dot);
-  }
+  @include direction(vertical);
 }
 
-.vertical.container:hover .dots {
-  opacity: 1;
+.never {
+  display: none;
+}
+
+.container {
+  &.horizontal,
+  &.vertical {
+    &:hover .dots {
+      opacity: 1;
+    }
+  }
 }
 </style>

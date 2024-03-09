@@ -6,14 +6,18 @@
     @panel-change="onPanelChange"
   >
     <template #swiper="{ configProps }">
-      <div :style="{ width: '414px' }">
+      <div :style="{ width: '800' }">
         <carousel
           ref="carousel"
           class="carousel"
           transitionStyle="all 300ms linear"
+          :direction="configProps.direction"
+          :effect="configProps.effect"
           :showDots="configProps.showDots"
           :showArrow="configProps.showArrow"
-          :effect="'slide'"
+          :dotPlacement="configProps.dotPlacement"
+          :arrowPlacement="configProps.arrowPlacement"
+          :turnDirection="configProps.turnDirection"
           :delay="4000"
           :loop="true"
           @change="pageChange($event)"
@@ -61,7 +65,7 @@ function pageChange(index) {}
 
 <style scoped>
 .carousel {
-  width: 414px;
-  height: 240px;
+  width: 640px;
+  height: 360px;
 }
 </style>
