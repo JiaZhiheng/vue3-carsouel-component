@@ -24,6 +24,8 @@ A Vue 3 carousel component
 | dotType         | `'line' \| 'dot'`                | `'line'`       | 轮播指示点样式         |
 | delay           | `number`                         | `0`            | 延时播放时间           |
 | loop            | `boolean`                        | `true`         | 是否循环播放           |
+| trigger         | `string`                         | `click`        | 触发切换的方式         |
+| defaultIndex    | `number`                         | `0`            | 默认显示页             |
 
 #### Carousel Methods
 
@@ -42,15 +44,13 @@ A Vue 3 carousel component
 
 #### Carousel Slots
 
-| 名称 | 参数 | 说明 |
-| --- | --- | --- |
-| default | `()` | 轮播的内容 |
-| arrow | `(info: { total: number, currentIndex: number, to: (index: number) => void, prev: () => void, next: () => void })` | 箭头 |
-| dots | `(info: { total: number, currentIndex: number, to: (index: number) => void })` | 指示点 |
+| 名称    | 参数                                                                                                               | 说明       |
+| ------- | ------------------------------------------------------------------------------------------------------------------ | ---------- |
+| default | `()`                                                                                                               | 轮播的内容 |
+| arrow   | `(info: { total: number, currentIndex: number, to: (index: number) => void, prev: () => void, next: () => void })` | 箭头       |
+| dots    | `(info: { total: number, currentIndex: number, to: (index: number) => void })`                                     | 指示点     |
 
 ### 后续更新计划
-
-default-index
 
 代码整理 文件结构整理
 

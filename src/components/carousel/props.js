@@ -18,8 +18,8 @@
  * @prop {String} dotType - 轮播指示点样式，可选值包括 "dot"、"line"，默认为 'dot'。
  * @prop {Number} delay - 延时播放时间，默认为 0。
  * @prop {Boolean} loop - 是否循环播放，默认为 true。
- * @prop {String} trigger -触发切换的方式, 默认为 'click'
- * @prop {Number} defaultIndex - 默认显示的轮播图索引，默认为 0。
+ * @prop {String} trigger -触发切换的方式，默认为 'click'
+ * @prop {Number} defaultIndex - 默认显示页，默认为 0。
  *
  * @component CarouselContext
  * @prop {String} direction - 轮播图方向，可选值包括 "horizontal"、"vertical"。
@@ -41,6 +41,7 @@
  * @prop {String} dotPlacement - 轮播指示点位置，可选值包括 "top"、"bottom"、"left"、"right"、"top-left"、"top-right"、"bottom-left"、"bottom-right"。
  * @prop {String} dotType - 轮播指示点样式，可选值包括 "dot"、"line"。
  * @prop {String} showDots - 是否显示轮播点，可选值包括 "always"、"hover"、"never"。
+ * @prop {String} trigger -触发切换的方式，默认为 'click'
  */
 export const carouselProps = {
   direction: {
