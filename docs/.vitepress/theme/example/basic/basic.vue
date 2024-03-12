@@ -10,11 +10,11 @@
         <carousel
           ref="carousel"
           class="carousel"
-          transitionStyle="all 300ms linear"
+          transitionStyle="all 4000ms linear"
           :showDots="configProps.showDots"
           :showArrow="configProps.showArrow"
-          :effect="'slide'"
-          :delay="4000"
+          :effect="'scroll'"
+          :delay="0"
           :loop="true"
           @change="pageChange($event)"
         >
@@ -61,7 +61,7 @@ function pageChange(index) {}
 
 <style scoped>
 .carousel {
-  width: 640px;
-  height: 360px;
+  width: 480px;
+  height: 270px;
 }
 </style>

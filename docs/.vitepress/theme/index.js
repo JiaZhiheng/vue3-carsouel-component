@@ -7,8 +7,8 @@ import Basic from './example/basic/basic.vue';
 import Arrow from './example/arrow/arrow.vue';
 
 // import site webComponents
-import 'tdesign-site-components';
-import 'tdesign-site-components/lib/styles/style.css';
+// import 'tdesign-site-components';
+// import 'tdesign-site-components/lib/styles/style.css';
 
 export default {
   ...DefaultTheme,
@@ -19,6 +19,12 @@ export default {
     app.component('BaseUsage', BaseUsage);
     app.component('Basic', Basic);
     app.component('Arrow', Arrow);
+
+
+    if (import.meta.env.SSR === false) {
+      import('tdesign-site-components');
+      import('tdesign-site-components/lib/styles/style.css');
+    }
   },
   setup() {}
 };

@@ -50,7 +50,7 @@ A Vue 3 carousel component
 
 ### 后续更新计划
 
-default-index trigger
+default-index
 
 代码整理 文件结构整理
 

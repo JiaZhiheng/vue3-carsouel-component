@@ -18,8 +18,9 @@
           :dotPlacement="configProps.dotPlacement"
           :arrowPlacement="configProps.arrowPlacement"
           :turnDirection="configProps.turnDirection"
-          :delay="4000"
+          :delay="0"
           :loop="true"
+          :defaultIndex="0"
           @change="pageChange($event)"
         >
           <div v-for="item in cardList" :style="item.style"></div>
@@ -65,7 +66,7 @@ function pageChange(index) {}
 
 <style scoped>
 .carousel {
-  width: 640px;
-  height: 360px;
+  width: 480px;
+  height: 270px;
 }
 </style>

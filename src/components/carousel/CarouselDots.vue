@@ -4,7 +4,8 @@
       :class="[getItemClass(index), dotType]"
       v-for="(item, index) in config"
       :key="item.id"
-      @click="to(index)"
+      @mouseenter="trigger === 'hover' ? handleMouseEnter(index) : null"
+      @click="trigger === 'click' ? to(index) : null"
     ></li>
   </ul>
 </template>
@@ -30,6 +31,10 @@ function getItemClass(index) {
 
 function to(index) {
   emit('to', index);
+}
+
+function handleMouseEnter(index) {
+  this.to(index);
 }
 </script>
 

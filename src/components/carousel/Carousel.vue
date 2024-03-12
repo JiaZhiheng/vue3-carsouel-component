@@ -36,6 +36,7 @@
         :total="total"
         :slides-per-view="slidesPerView"
         :index-counter="indexCounter"
+        :trigger="trigger"
         @to="to"
       >
       </carousel-dots>
@@ -53,7 +54,7 @@ import { carouselProps } from './props';
 const props = defineProps(carouselProps);
 const emit = defineEmits(['change']);
 const total = useSlots().default()[0].children.length;
-const indexCounter = ref(0);
+const indexCounter = ref(total - props.defaultIndex);
 const playIntervalId = ref(null);
 const carouselContext = ref(null);
 const currentIndex = computed(() => (total - indexCounter.value) % total);
@@ -160,7 +161,7 @@ function stopPlay() {
 // 初始化
 function init() {
   stopPlay();
-  if (props.immediate && props.autoplay) props.turnDirection ? toNext() : toPrev();
+  if ((props.immediate && props.autoplay) || props.effect === 'scroll') props.turnDirection ? toNext() : toPrev();
   startPlay();
 }
 
