@@ -23,14 +23,14 @@
           :defaultIndex="0"
           @change="pageChange($event)"
         >
-          <img src="../../assets/images/1.webp" />
-          <img src="../../assets/images/2.webp" />
-          <img src="../../assets/images/3.webp" />
-          <img src="../../assets/images/4.webp" />
-          <img src="../../assets/images/5.webp" />
-          <img src="../../assets/images/6.webp" />
-          <img src="../../assets/images/7.webp" />
-          <img src="../../assets/images/8.webp" />
+          <img src="https://jiazhiheng.github.io/vue3-carsouel-component/assets/1.png" />
+          <img src="https://jiazhiheng.github.io/vue3-carsouel-component/assets/2.png" />
+          <img src="https://jiazhiheng.github.io/vue3-carsouel-component/assets/3.png" />
+          <img src="https://jiazhiheng.github.io/vue3-carsouel-component/assets/4.png" />
+          <img src="https://jiazhiheng.github.io/vue3-carsouel-component/assets/5.png" />
+          <img src="https://jiazhiheng.github.io/vue3-carsouel-component/assets/6.png" />
+          <img src="https://jiazhiheng.github.io/vue3-carsouel-component/assets/7.png" />
+          <img src="https://jiazhiheng.github.io/vue3-carsouel-component/assets/8.png" />
         </carousel>
       </div>
     </template>
