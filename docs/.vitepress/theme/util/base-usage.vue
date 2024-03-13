@@ -1,24 +1,26 @@
 <template>
-  <td-doc-usage ref="usageRef" :code="usageCode">
-    <div
-      v-for="item in panelList"
-      :slot="item.value"
-      :key="item.value"
-      :style="{
-        width: '100%',
-        height: '100%',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center'
-      }"
-    >
-      <slot :name="item.value" :config-props="{ ...defaultProps, ...changedProps }"></slot>
-    </div>
-  </td-doc-usage>
+  <ClientOnly>
+    <td-doc-usage ref="usageRef" :code="usageCode">
+      <div
+        v-for="item in panelList"
+        :slot="item.value"
+        :key="item.value"
+        :style="{
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }"
+      >
+        <slot :name="item.value" :config-props="{ ...defaultProps, ...changedProps }"></slot>
+      </div>
+    </td-doc-usage>
+  </ClientOnly>
 </template>
 
 <script setup>
-import { ref, compile, onMounted, computed, onBeforeUnmount, watchEffect } from 'vue';
+import { ref, compile, onMounted, computed, onBeforeUnmount, watchEffect, nextTick } from 'vue';
 import * as prettier from 'prettier/standalone';
 import * as parserHtml from 'prettier/parser-html';
 
@@ -41,9 +43,11 @@ const usageRef = ref({});
 const changedProps = ref({});
 
 onMounted(() => {
-  usageRef.value.panelList = props.panelList;
-  usageRef.value.addEventListener('ConfigChange', onConfigChange);
-  usageRef.value.addEventListener('PanelChange', onPanelChange);
+  nextTick(() => {
+    usageRef.value.panelList = props.panelList;
+    usageRef.value.addEventListener('ConfigChange', onConfigChange);
+    usageRef.value.addEventListener('PanelChange', onPanelChange);
+  })
 });
 
 watchEffect(() => {
