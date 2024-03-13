@@ -44,17 +44,29 @@ A Vue 3 carousel component
 
 #### Carousel Slots
 
-| 名称    | 参数                                                                                                               | 说明       |
-| ------- | ------------------------------------------------------------------------------------------------------------------ | ---------- |
-| default | `()`                                                                                                               | 轮播的内容 |
-| arrow   | `(info: { total: number, currentIndex: number, to: (index: number) => void, prev: () => void, next: () => void })` | 箭头       |
-| dots    | `(info: { total: number, currentIndex: number, to: (index: number) => void })`                                     | 指示点     |
+| 名称 | 参数 | 说明 |
+| --- | --- | --- |
+| default | `()` | 轮播的内容 |
+| arrow | `(info: { total: number, currentIndex: number, to: (index: number) => void, prev: () => void, next: () => void })` | 箭头 |
+| dots | `(info: { total: number, currentIndex: number, to: (index: number) => void })` | 指示点 |
 
 ### 后续更新计划
+
+更新静态资源文件
+
+确定图片随轮播图改变 或 轮播图随图片改变
+
+相对路径改绝对路径
+
+播放方向切换更新面板 arrow example
+
+更方便的引入静态资源
 
 代码整理 文件结构整理
 
 css 瘦身
+
+Docs API Example
 
 重构代码展示组件 抽离到 npm
 
@@ -63,4 +75,3 @@ css 瘦身
 单元测试
 
 TypeScript
-

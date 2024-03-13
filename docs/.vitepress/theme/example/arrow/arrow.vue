@@ -23,7 +23,14 @@
           :defaultIndex="0"
           @change="pageChange($event)"
         >
-          <div v-for="item in cardList" :style="item.style"></div>
+          <img src="../../assets/images/1.webp" />
+          <img src="../../assets/images/2.webp" />
+          <img src="../../assets/images/3.webp" />
+          <img src="../../assets/images/4.webp" />
+          <img src="../../assets/images/5.webp" />
+          <img src="../../assets/images/6.webp" />
+          <img src="../../assets/images/7.webp" />
+          <img src="../../assets/images/8.webp" />
         </carousel>
       </div>
     </template>
