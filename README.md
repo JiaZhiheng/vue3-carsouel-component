@@ -54,6 +54,8 @@ A Vue 3 carousel component
 
 更新静态资源文件
 
+slot 层级问题
+
 确定图片随轮播图改变 或 轮播图随图片改变
 
 相对路径改绝对路径
