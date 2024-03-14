@@ -52,9 +52,9 @@ A Vue 3 carousel component
 
 ### 后续更新计划
 
-更新静态资源文件
+轮播第一圈有间隙
 
-slot 层级问题
+更新静态资源文件 解决 hash 文件名问题
 
 确定图片随轮播图改变 或 轮播图随图片改变
 
@@ -66,7 +66,7 @@ slot 层级问题
 
 代码整理 文件结构整理
 
-css 瘦身
+css 瘦身 检查 z-index 必要性
 
 Docs API Example
 
@@ -77,3 +77,7 @@ Docs API Example
 单元测试
 
 TypeScript
+
+node
+
+react

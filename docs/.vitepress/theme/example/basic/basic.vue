@@ -18,7 +18,7 @@
           :loop="true"
           @change="pageChange($event)"
         >
-          <div v-for="item in cardList" :style="item.style"></div>
+          <img v-for="item in cardList" :src="item.src" />
         </carousel>
       </div>
     </template>

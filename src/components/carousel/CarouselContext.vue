@@ -1,7 +1,7 @@
 <template>
   <div class="card-container" :class="direction">
     <div
-      v-for="(slotContent, index) in $slots.default()[0].children"
+      v-for="(slotContent, index) in slotList"
       :key="slotContent.key"
       class="card-item"
       :style="itemStyle(index)"
@@ -13,6 +13,12 @@
 
 <script setup>
 import { carouselContextProps } from './props';
+import { useSlots } from 'vue';
+
+const slotList =
+  typeof useSlots().default()[0].children[0].type === 'symbol'
+    ? useSlots().default()[0].children[0].children
+    : useSlots().default()[0].children;
 
 const props = defineProps(carouselContextProps);
 
