@@ -23,14 +23,14 @@
           :defaultIndex="0"
           @change="pageChange($event)"
         >
-          <img src="../../../../public/images/1.png" />
-          <img src="../../../../public/images/2.png" />
-          <img src="../../../../public/images/3.png" />
-          <img src="../../../../public/images/4.png" />
-          <img src="../../../../public/images/5.png" />
-          <img src="../../../../public/images/6.png" />
-          <img src="../../../../public/images/7.png" />
-          <img src="../../../../public/images/8.png" />
+          <img src="https://jiazhiheng.github.io/vue3-carsouel-component/images/1.png" />
+          <img src="https://jiazhiheng.github.io/vue3-carsouel-component/images/2.png" />
+          <img src="https://jiazhiheng.github.io/vue3-carsouel-component/images/3.png" />
+          <img src="https://jiazhiheng.github.io/vue3-carsouel-component/images/4.png" />
+          <img src="https://jiazhiheng.github.io/vue3-carsouel-component/images/5.png" />
+          <img src="https://jiazhiheng.github.io/vue3-carsouel-component/images/6.png" />
+          <img src="https://jiazhiheng.github.io/vue3-carsouel-component/images/7.png" />
+          <img src="https://jiazhiheng.github.io/vue3-carsouel-component/images/8.png" />
         </carousel>
       </div>
     </template>

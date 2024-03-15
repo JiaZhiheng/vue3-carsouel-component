@@ -50,21 +50,19 @@ A Vue 3 carousel component
 | arrow | `(info: { total: number, currentIndex: number, to: (index: number) => void, prev: () => void, next: () => void })` | 箭头 |
 | dots | `(info: { total: number, currentIndex: number, to: (index: number) => void })` | 指示点 |
 
-### 后续更新计划
-
-slot 层级问题 v-for 与 静态标签混用
+### Bugs && 待检验
 
 轮播第一圈有间隙
 
-更新静态资源文件 解决 hash 文件名问题
+slot 层级问题 v-for 与 静态标签混用
 
 确定图片随轮播图改变 或 轮播图随图片改变
+
+### 后续更新计划
 
 相对路径改绝对路径
 
 播放方向切换更新面板 arrow example
-
-更方便的引入静态资源
 
 代码整理 文件结构整理
 
