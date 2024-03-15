@@ -52,6 +52,8 @@ A Vue 3 carousel component
 
 ### 后续更新计划
 
+slot 层级问题 v-for 与 静态标签混用
+
 轮播第一圈有间隙
 
 更新静态资源文件 解决 hash 文件名问题
