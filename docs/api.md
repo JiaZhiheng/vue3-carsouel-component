@@ -1,10 +1,14 @@
-# vue3-carsouel-component
+---
+layout: doc
+sidebar: false
+aside: true
+outline: [2, 4]
+pageClass: api-page-class
+---
 
-A Vue 3 carousel component
+# API
 
-### API
-
-#### Carousel Props
+## Carousel Props
 
 | 参数            | 类型                             | 默认值         | 说明                   |
 | --------------- | -------------------------------- | -------------- | ---------------------- |
@@ -26,7 +30,7 @@ A Vue 3 carousel component
 | trigger         | `string`                         | `click`        | 触发切换的方式         |
 | defaultIndex    | `number`                         | `0`            | 默认显示页             |
 
-#### Carousel Methods
+## Carousel Methods
 
 | 名称            | 类型                      | 说明         |
 | --------------- | ------------------------- | ------------ |
@@ -35,48 +39,16 @@ A Vue 3 carousel component
 | next            | `() => void`              | 滑动至后一页 |
 | getCurrentIndex | `() => number`            | 获取当前页   |
 
-#### Carousel Events
+## Carousel Events
 
 | 名称   | 类型           | 说明           |
 | ------ | -------------- | -------------- |
 | change | `() => number` | 轮播切换时触发 |
 
-#### Carousel Slots
+## Carousel Slots
 
 | 名称 | 参数 | 说明 |
 | --- | --- | --- |
 | default | `()` | 轮播的内容 |
 | arrow | `(info: { total: number, currentIndex: number, to: (index: number) => void, prev: () => void, next: () => void })` | 箭头 |
 | dots | `(info: { total: number, currentIndex: number, to: (index: number) => void })` | 指示点 |
-
-### Bugs && 待检验
-
-轮播第一圈有间隙
-
-slot 层级问题 v-for 与 静态标签混用
-
-确定图片随轮播图改变 或 轮播图随图片改变
-
-### 后续更新计划
-
-相对路径改绝对路径
-
-播放方向切换更新面板 arrow example
-
-代码整理 文件结构整理
-
-css 瘦身 检查 z-index 必要性
-
-Docs API Example
-
-重构代码展示组件 抽离到 npm
-
-脱离 tdesign
-
-单元测试
-
-TypeScript
-
-node
-
-react

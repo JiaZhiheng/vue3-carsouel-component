@@ -1,0 +1,17 @@
+.api-page-class .VPDoc.has-aside .content-container {
+  max-width: 1204px;
+}
+
+@media (min-width: 1440px) {
+  .api-page-class .VPDoc:not(.has-sidebar) .container {
+    max-width: 1380px;
+  }
+
+  .api-page-class .VPDoc:not(.has-sidebar) .content {
+    max-width: 1300px;
+  }
+
+  .api-page-class .VPDoc.has-aside .content-container {
+    max-width: 1204px;
+  }
+}

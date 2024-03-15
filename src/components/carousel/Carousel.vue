@@ -165,8 +165,7 @@ function stopPlay() {
 // 初始化
 function init() {
   stopPlay();
-  if ((props.immediate && props.autoplay) || props.effect === 'scroll')
-    props.turnDirection ? toNext() : toPrev();
+  if (props.effect === 'scroll') props.turnDirection ? toNext() : toPrev();
   startPlay();
 }
 

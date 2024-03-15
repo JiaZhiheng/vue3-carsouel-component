@@ -8,24 +8,25 @@ export default defineConfig({
   vue: {
     template: {
       compilerOptions: {
-        isCustomElement: (tag) => tag === 'td-doc-usage',
-      },
-    },
+        isCustomElement: (tag) => tag === 'td-doc-usage'
+      }
+    }
   },
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: '主页', link: '/' },
-      { text: '示例', link: '/example' },
+      { text: 'API', link: '/api' },
+      { text: '示例', link: '/example' }
     ],
 
     sidebar: [
       {
         text: 'Examples',
-        items: [],
-      },
+        items: []
+      }
     ],
 
-    socialLinks: [{ icon: 'github', link: 'https://github.com/vuejs/vitepress' }],
-  },
+    socialLinks: [{ icon: 'github', link: 'https://github.com/vuejs/vitepress' }]
+  }
 });

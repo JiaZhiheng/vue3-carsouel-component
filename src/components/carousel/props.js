@@ -11,7 +11,6 @@
  * @prop {Number} spaceBetween - 轮播图之间的间距，默认为 0。
  * @prop {Number} interval - 轮播间隔，单位毫秒，默认为 4000。
  * @prop {String} transitionStyle - 过渡效果的样式，单位秒，必需属性。
- * @prop {Boolean} immediate - 是否立即开始轮播，默认为 false。
  * @prop {Boolean} autoplay - 是否自动播放，默认为 true。
  * @prop {String} dotPlacement - 轮播指示点位置，可选值包括 "top"、"bottom"、"left"、"right"、"top-left"、"top-right"、"bottom-left"、"bottom-right"，默认为 'bottom'。
  * @prop {String} arrowPlacement - 轮播箭头位置，可选值包括 "start"、"center"、"end"、"top-left"、"top-right"、"bottom-left"、"bottom-right"，默认为 'center'。
@@ -90,10 +89,6 @@ export const carouselProps = {
   transitionStyle: {
     type: String,
     required: true
-  },
-  immediate: {
-    type: Boolean,
-    default: false
   },
   autoplay: {
     type: Boolean,

@@ -44,7 +44,6 @@ const config = ref([
     slidesPerView: 4,
     spaceBetween: 16,
     transitionStyle: 'all 4000ms linear',
-    immediate: true,
     delay: 1400
   }
 ]);
@@ -75,7 +74,6 @@ const getCarouselComponent = (type) => {
           :space-between="carouselItem.spaceBetween"
           :interval="carouselItem.interval"
           :transition-style="carouselItem.transitionStyle"
-          :immediate="carouselItem.immediate"
           :show-arrow="carouselItem.showArrow"
           :show-dots="carouselItem.showDots"
           :autoplay="carouselItem.autoplay"
