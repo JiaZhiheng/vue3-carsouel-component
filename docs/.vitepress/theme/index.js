@@ -5,6 +5,7 @@ import BaseUsage from './util/base-usage.vue';
 import Carousel from '../../../src/components/carousel/Carousel.vue';
 import Basic from './example/basic/basic.vue';
 import Arrow from './example/arrow/arrow.vue';
+import Indicator from './example/indicator/indicator.vue';
 import './custom.css';
 
 export default {
@@ -16,6 +17,7 @@ export default {
     app.component('BaseUsage', BaseUsage);
     app.component('Basic', Basic);
     app.component('Arrow', Arrow);
+    app.component('Indicator', Indicator);
 
     if (import.meta.env.SSR === false) {
       import('tdesign-site-components');

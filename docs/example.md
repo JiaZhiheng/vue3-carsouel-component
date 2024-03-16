@@ -6,3 +6,5 @@ sidebar: false
 <Basic></Basic>
 
 <Arrow></Arrow>
+
+<Indicator></Indicator>
