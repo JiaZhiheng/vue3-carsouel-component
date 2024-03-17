@@ -13,7 +13,7 @@
 
 <script setup>
 import { carouselContextProps } from './props';
-import { useSlots } from 'vue';
+import { useSlots, computed } from 'vue';
 
 const slotList =
   typeof useSlots().default()[0].children[0].type === 'symbol'
@@ -22,16 +22,20 @@ const slotList =
 
 const props = defineProps(carouselContextProps);
 
-const cardSize = `calc(${100 / props.slidesPerView}% - ${
-  (props.spaceBetween * (props.slidesPerView - 1)) / props.slidesPerView
-}px)`;
+const cardSize = computed(() => {
+  `calc(${100 / props.slidesPerView}% - ${
+    (props.spaceBetween * (props.slidesPerView - 1)) / props.slidesPerView
+  }px)`;
+});
 
-const config = generateCardArray(
-  props.total,
-  props.slidesPerView,
-  props.direction,
-  props.effect,
-  props.spaceBetween
+const config = computed(() =>
+  generateCardArray(
+    props.total,
+    props.slidesPerView,
+    props.direction,
+    props.effect,
+    props.spaceBetween
+  )
 );
 
 // 生成卡片数组
@@ -58,12 +62,11 @@ function generateCardArray(total, slidesPerView, direction, effect, spaceBetween
     }
     cardArray.push(style);
   }
-
   return cardArray;
 }
 
 function itemStyle(index) {
-  return config[(index + props.indexCounter) % config.length];
+  return config.value[(index + props.indexCounter) % config.value.length];
 }
 </script>
 
