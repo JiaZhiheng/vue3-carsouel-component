@@ -53,10 +53,9 @@ import { carouselProps } from './props';
 
 const props = defineProps(carouselProps);
 const emit = defineEmits(['change']);
-const total =
-  typeof useSlots().default()[0].type !== 'symbol'
-    ? useSlots().default().length
-    : useSlots().default()[0].children.length;
+const total = useSlots()
+  .default()
+  .flatMap((child) => (typeof child.type !== 'symbol' ? [child] : child.children)).length;
 
 const indexCounter = ref(total - props.defaultIndex);
 const playIntervalId = ref(null);

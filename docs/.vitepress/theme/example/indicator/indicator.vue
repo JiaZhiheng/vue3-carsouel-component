@@ -25,10 +25,7 @@
         >
           <img src="https://jiazhiheng.github.io/vue3-carsouel-component/images/1.webp" />
           <img src="https://jiazhiheng.github.io/vue3-carsouel-component/images/2.webp" />
-          <img src="https://jiazhiheng.github.io/vue3-carsouel-component/images/3.webp" />
-          <img src="https://jiazhiheng.github.io/vue3-carsouel-component/images/4.webp" />
-          <img src="https://jiazhiheng.github.io/vue3-carsouel-component/images/5.webp" />
-          <img src="https://jiazhiheng.github.io/vue3-carsouel-component/images/6.webp" />
+          <img v-for="item in cardList" :src="item.src" />
           <img src="https://jiazhiheng.github.io/vue3-carsouel-component/images/7.webp" />
           <img src="https://jiazhiheng.github.io/vue3-carsouel-component/images/8.webp" />
         </carousel>

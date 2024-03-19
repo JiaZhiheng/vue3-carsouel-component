@@ -53,8 +53,6 @@ A Vue 3 carousel component
 
 轮播第一圈有间隙
 
-slot 层级问题 v-for 与 静态标签混用
-
 确定图片随轮播图改变 或 轮播图随图片改变
 
 卡片不够的兼容性
