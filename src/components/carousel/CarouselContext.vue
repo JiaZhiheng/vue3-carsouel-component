@@ -3,8 +3,8 @@
     <div
       v-for="(slotContent, index) in slotList"
       :key="slotContent.key"
-      class="card-item"
       :style="itemStyle(index)"
+      class="card-item"
     >
       <component :is="slotContent"></component>
     </div>
@@ -13,7 +13,7 @@
 
 <script setup>
 import { carouselContextProps } from './props';
-import { useSlots, computed } from 'vue';
+import { ref, useSlots, computed, watch } from 'vue';
 
 const slotList =
   typeof useSlots().default()[0].children[0].type === 'symbol'
@@ -21,6 +21,22 @@ const slotList =
     : useSlots().default()[0].children;
 
 const props = defineProps(carouselContextProps);
+
+const transitionStyle = ref(props.transitionStyle);
+
+watch(
+  () => props.direction,
+  () => {
+    transitionStyle.value = '0';
+  }
+);
+
+watch(
+  () => props.indexCounter,
+  () => {
+    transitionStyle.value = props.transitionStyle;
+  }
+);
 
 const cardSize = computed(() => {
   `calc(${100 / props.slidesPerView}% - ${
