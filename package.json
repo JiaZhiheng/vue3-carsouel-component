@@ -39,7 +39,7 @@
     "rollup-plugin-visualizer": "^5.12.0",
     "sass": "^1.71.1",
     "tdesign-site-components": "0.14.4",
-    "vitepress": "^1.0.0-rc.45"
+    "vitepress": "^1.0.1"
   },
   "scripts": {
     "dev": "vite",
