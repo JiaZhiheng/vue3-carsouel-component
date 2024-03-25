@@ -1,8 +1,22 @@
 ---
+title: API
+titleTemplate: API 文档
+description: 轮播图参数
+head:
+  - - meta
+    - name: description
+      content: carousel api docs
+  - - meta
+    - name: keywords
+      content: carousel slide scroll fade
 layout: doc
+navbar: true
 sidebar: false
-aside: true
+aside: left
 outline: [2, 4]
+lastUpdated: false
+editLink: false
+footer: true
 pageClass: api-page-class
 ---
 
