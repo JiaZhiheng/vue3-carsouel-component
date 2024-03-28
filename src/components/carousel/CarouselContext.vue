@@ -45,7 +45,7 @@ watch(
 );
 
 const cardSize = computed(() => {
-  `calc(${100 / props.slidesPerView}% - ${
+  return `calc(${100 / props.slidesPerView}% - ${
     (props.spaceBetween * (props.slidesPerView - 1)) / props.slidesPerView
   }px)`;
 });
@@ -70,7 +70,7 @@ function generateCardArray(total, slidesPerView, direction, effect, spaceBetween
     return direction === 'horizontal' ? `translateX(${offset})` : `translateY(${offset})`;
   }
   for (let i = 0; i < total; i++) {
-    const style = {};
+    const style = { visibility: 'visible' };
     if (effect === 'slide' || effect === 'scroll') {
       if (i <= slidesPerView) {
         style.transform = getTransformValue(i, false);
@@ -81,7 +81,7 @@ function generateCardArray(total, slidesPerView, direction, effect, spaceBetween
       }
     } else {
       style.opacity = i < slidesPerView ? 1 : 0;
-      style.zIndex = i < slidesPerView ? 1 : 0;
+      // style.zIndex = i < slidesPerView ? 1 : 0;
     }
     cardArray.push(style);
   }
@@ -118,6 +118,7 @@ function itemStyle(index) {
 }
 
 .card-item {
+  visibility: hidden;
   position: absolute;
   width: 100%;
   height: 100%;

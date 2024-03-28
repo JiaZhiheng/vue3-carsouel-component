@@ -82,7 +82,9 @@ export default defineConfig({
     nav: [
       { text: 'Docs', link: '/docs' },
       { text: 'API', link: '/api' },
-      { text: 'Example', link: '/example' }
+      { text: 'Example', link: '/example' },
+      { text: 'Demo', link: '/demo' },
+      { text: 'Home', link: '/home' }
     ],
     sidebar: [
       {

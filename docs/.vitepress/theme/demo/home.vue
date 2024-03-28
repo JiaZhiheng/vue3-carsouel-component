@@ -1,11 +1,11 @@
 <script setup>
 import { ref } from 'vue';
-import Carousel from '../components/carousel/Carousel.vue';
+import Carousel from '../../../../src/components/carousel/Carousel.vue';
 // import Carousel from '../dist/carousel.es';
 import CardFade from '../components/card/CardFade.vue';
-import CardVertical from '../components/card/CardVertical.vue';
-import CardHorizontal from '../components/card/CardHorizontal.vue';
-import { fadeConfig, horizontalConfig, verticalConfig } from '../components/card/card.config';
+import CardSlide from '../components/card/CardSlide.vue';
+import CardScroll from '../components/card/CardScroll.vue';
+import { fadeConfig, scrollConfig, slideConfig } from '../components/card/card.config.js';
 
 const config = ref([
   {
@@ -22,7 +22,7 @@ const config = ref([
   },
   {
     id: 2,
-    config: verticalConfig,
+    config: slideConfig,
     type: 'vertical',
     direction: 'vertical',
     effect: 'slide',
@@ -35,7 +35,7 @@ const config = ref([
   },
   {
     id: 3,
-    config: horizontalConfig,
+    config: scrollConfig,
     type: 'horizontal',
     direction: 'horizontal',
     effect: 'slide',
@@ -51,8 +51,8 @@ const config = ref([
 const getCarouselComponent = (type) => {
   const components = {
     fade: CardFade,
-    vertical: CardVertical,
-    horizontal: CardHorizontal
+    vertical: CardSlide,
+    horizontal: CardScroll
   };
   return components[type] || null;
 };
@@ -148,5 +148,5 @@ const getCarouselComponent = (type) => {
       margin: 0 8px;
     }
   }
-}</style
->../../../../src/components/card/card.config
+}
+</style>
