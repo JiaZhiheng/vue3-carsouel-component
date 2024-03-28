@@ -19,7 +19,7 @@ export default defineConfig({
   /* Build 构建 */
   // srcDir: './src',
   srcExclude: ['**/README.md', '**/TODO.md'],
-  outDir: '../public',
+  outDir: '../dist',
   assetsDir: 'static',
   cacheDir: './.vitepress/cache',
   ignoreDeadLinks: true,
