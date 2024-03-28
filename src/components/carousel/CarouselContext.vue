@@ -70,7 +70,7 @@ function generateCardArray(total, slidesPerView, direction, effect, spaceBetween
     return direction === 'horizontal' ? `translateX(${offset})` : `translateY(${offset})`;
   }
   for (let i = 0; i < total; i++) {
-    const style = { visibility: 'visible' };
+    const style = {};
     if (effect === 'slide' || effect === 'scroll') {
       if (i <= slidesPerView) {
         style.transform = getTransformValue(i, false);
@@ -81,9 +81,11 @@ function generateCardArray(total, slidesPerView, direction, effect, spaceBetween
       }
     } else {
       style.opacity = i < slidesPerView ? 1 : 0;
+      style.zIndex = i < slidesPerView ? 1 : 0;
     }
     cardArray.push(style);
   }
+  console.log(cardArray);
   return cardArray;
 }
 
@@ -116,7 +118,6 @@ function itemStyle(index) {
 }
 
 .card-item {
-  visibility: hidden;
   position: absolute;
   width: 100%;
   height: 100%;

@@ -18,6 +18,7 @@
           :dotPlacement="configProps.dotPlacement"
           :arrowPlacement="configProps.arrowPlacement"
           :turnDirection="configProps.turnDirection"
+          :autoplay="false"
           :delay="0"
           :loop="true"
           :defaultIndex="0"
@@ -69,6 +70,10 @@ function onPanelChange(panel) {
 }
 
 function pageChange(index) {}
+
+function print(msg) {
+  console.log(msg);
+}
 </script>
 
 <style scoped>
