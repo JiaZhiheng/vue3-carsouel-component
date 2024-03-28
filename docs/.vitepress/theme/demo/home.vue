@@ -1,72 +1,11 @@
-<script setup>
-import { ref } from 'vue';
-import Carousel from '../../../../src/components/carousel/Carousel.vue';
-// import Carousel from '../dist/carousel.es';
-import CardFade from '../components/card/CardFade.vue';
-import CardSlide from '../components/card/CardSlide.vue';
-import CardScroll from '../components/card/CardScroll.vue';
-import { fadeConfig, scrollConfig, slideConfig } from '../components/card/card.config.js';
-
-const config = ref([
-  {
-    id: 1,
-    config: fadeConfig,
-    type: 'fade',
-    direction: 'horizontal',
-    effect: 'fade',
-    showArrow: 'always',
-    showDots: 'always',
-    slidesPerView: 1,
-    transitionStyle: 'all 300ms linear',
-    delay: 1400
-  },
-  {
-    id: 2,
-    config: slideConfig,
-    type: 'vertical',
-    direction: 'vertical',
-    effect: 'slide',
-    showArrow: 'never',
-    showDots: 'never',
-    slidesPerView: 2,
-    spaceBetween: 16,
-    transitionStyle: 'all 300ms linear',
-    delay: 1400
-  },
-  {
-    id: 3,
-    config: scrollConfig,
-    type: 'horizontal',
-    direction: 'horizontal',
-    effect: 'slide',
-    showArrow: 'never',
-    showDots: 'never',
-    slidesPerView: 4,
-    spaceBetween: 16,
-    transitionStyle: 'all 4000ms linear',
-    delay: 1400
-  }
-]);
-
-const getCarouselComponent = (type) => {
-  const components = {
-    fade: CardFade,
-    vertical: CardSlide,
-    horizontal: CardScroll
-  };
-  return components[type] || null;
-};
-</script>
-
 <template>
   <div class="project">
     <div class="project__wrap">
       <div class="project__carousel">
         <carousel
           v-for="carouselItem in config"
-          :key="carouselItem.id"
-          :class="`carousel carousel--${carouselItem.type}`"
-          :type="carouselItem.type"
+          :key="carouselItem.effect"
+          :class="`carousel carousel--${carouselItem.effect}`"
           :direction="carouselItem.direction"
           :effect="carouselItem.effect"
           :turn-direction="carouselItem.turnDirection"
@@ -76,15 +15,14 @@ const getCarouselComponent = (type) => {
           :transition-style="carouselItem.transitionStyle"
           :show-arrow="carouselItem.showArrow"
           :show-dots="carouselItem.showDots"
-          :autoplay="carouselItem.autoplay"
+          :arrow-placement="carouselItem.arrowPlacement"
+          :dot-placement="carouselItem.dotPlacement"
           :delay="carouselItem.delay"
-          :dot-placement="'bottom'"
-          :dot-type="'line'"
         >
           <component
             v-for="item in carouselItem.config"
-            :key="item.id"
-            :is="getCarouselComponent(carouselItem.type)"
+            :key="item.name"
+            :is="getCarouselComponent(carouselItem.effect)"
             :item="item"
           />
         </carousel>
@@ -93,7 +31,66 @@ const getCarouselComponent = (type) => {
   </div>
 </template>
 
-<style lang="scss">
+<script setup>
+import { ref } from 'vue';
+// import Carousel from '../../../../src/components/carousel/Carousel.vue';
+import Carousel from '../../../../dist/carousel.es';
+import '../../../../dist/style.css';
+import CardFade from '../components/card/CardFade.vue';
+import CardSlide from '../components/card/CardSlide.vue';
+import CardScroll from '../components/card/CardScroll.vue';
+import { fadeConfig, scrollConfig, slideConfig } from '../components/card/card.config.js';
+
+const config = ref([
+  {
+    config: fadeConfig,
+    direction: 'horizontal',
+    effect: 'fade',
+    showArrow: true,
+    showDots: true,
+    slidesPerView: 1,
+    transitionStyle: 'all 300ms linear',
+    showArrow: 'hover',
+    showDots: 'hover',
+    dotPlacement: 'bottom',
+    arrowPlacement: 'center',
+    delay: 1400
+  },
+  {
+    config: slideConfig,
+    direction: 'vertical',
+    effect: 'slide',
+    slidesPerView: 2,
+    spaceBetween: 16,
+    transitionStyle: 'all 300ms linear',
+    showArrow: 'never',
+    showDots: 'never',
+    delay: 1400
+  },
+  {
+    config: scrollConfig,
+    direction: 'horizontal',
+    effect: 'scroll',
+    slidesPerView: 4,
+    spaceBetween: 16,
+    transitionStyle: 'all 4000ms linear',
+    showArrow: 'never',
+    showDots: 'never',
+    delay: 1400
+  }
+]);
+
+const getCarouselComponent = (effect) => {
+  const components = {
+    fade: CardFade,
+    slide: CardSlide,
+    scroll: CardScroll
+  };
+  return components[effect] || null;
+};
+</script>
+
+<style lang="scss" scoped>
 .project {
   width: 100%;
   height: calc(100vh - 64px);
@@ -103,21 +100,19 @@ const getCarouselComponent = (type) => {
   align-items: center;
 
   &__wrap {
-    max-width: 1280px;
+    max-width: 1312px;
     margin: 0 auto;
   }
 
   &__carousel {
-    width: 1280px;
-    height: 820px;
+    width: 1312px;
+    height: 840px;
     display: grid;
     grid-template-columns: 3fr 1fr;
     grid-template-rows: 2fr 1fr;
   }
 
   .carousel {
-    position: relative;
-
     &--fade {
       grid-area: 1/1/2/2;
       animation: bounceInLeft 1s both;
@@ -128,7 +123,7 @@ const getCarouselComponent = (type) => {
       margin: 0;
     }
 
-    &--vertical {
+    &--slide {
       grid-area: 1/2/2/3;
       animation: bounceInRight 1s both;
       animation-delay: 0.2s;
@@ -138,7 +133,7 @@ const getCarouselComponent = (type) => {
       margin: 8px 0;
     }
 
-    &--horizontal {
+    &--scroll {
       grid-area: 2/1/3/3;
       animation: bounceInUp 1s both;
       animation-delay: 0.4s;
