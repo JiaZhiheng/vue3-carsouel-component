@@ -14,3 +14,7 @@ sidebar: false
 ## 指示器
 
 <Indicator></Indicator>
+
+## 插槽
+
+<Slot></Slot>

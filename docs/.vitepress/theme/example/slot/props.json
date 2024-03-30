@@ -1,0 +1,80 @@
+[
+  {
+    "name": "direction",
+    "type": "enum",
+    "defaultValue": "horizontal",
+    "options": [
+      {
+        "label": "horizontal",
+        "value": "horizontal"
+      },
+      {
+        "label": "vertical",
+        "value": "vertical"
+      }
+    ]
+  },
+  {
+    "name": "effect",
+    "type": "enum",
+    "defaultValue": "fade",
+    "options": [
+      {
+        "label": "scroll",
+        "value": "scroll"
+      },
+      {
+        "label": "fade",
+        "value": "fade"
+      },
+      {
+        "label": "slide",
+        "value": "slide"
+      }
+    ]
+  },
+  {
+    "name": "showDots",
+    "type": "enum",
+    "defaultValue": "always",
+    "options": [
+      {
+        "label": "always",
+        "value": "always"
+      },
+      {
+        "label": "hover",
+        "value": "hover"
+      },
+      {
+        "label": "never",
+        "value": "never"
+      }
+    ]
+  },
+  {
+    "name": "showArrow",
+    "type": "enum",
+    "defaultValue": "always",
+    "options": [
+      {
+        "label": "always",
+        "value": "always"
+      },
+      {
+        "label": "hover",
+        "value": "hover"
+      },
+      {
+        "label": "never",
+        "value": "never"
+      }
+    ]
+  },
+  {
+    "name": "turnDirection",
+    "type": "Boolean",
+    "defaultValue": true,
+    "options": []
+  }
+]
