@@ -85,7 +85,6 @@ function generateCardArray(total, slidesPerView, direction, effect, spaceBetween
     }
     cardArray.push(style);
   }
-  console.log(cardArray);
   return cardArray;
 }
 

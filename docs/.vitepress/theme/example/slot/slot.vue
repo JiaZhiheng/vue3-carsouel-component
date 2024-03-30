@@ -11,18 +11,25 @@
           ref="carousel"
           class="carousel"
           transitionStyle="all 300ms linear"
-          :showDots="showDots"
-          :showArrow="showArrow"
-          :dotPlacement="dotPlacement"
-          :arrowPlacement="arrowPlacement"
-          :dotType="dotType"
-          :direction="direction"
+          :showDots="configList.showDots"
+          :showArrow="configList.showArrow"
+          :dotPlacement="configList.dotPlacement"
+          :arrowPlacement="configList.arrowPlacement"
+          :dotType="configList.dotType"
+          :direction="configList.direction"
           :effect="'slide'"
           :delay="4000"
           :loop="true"
           @change="pageChange($event)"
         >
-          <div v-for="item in cardList" :style="item.style"></div>
+          <img src="https://jiazhiheng.github.io/vue3-carsouel-component/images/1.webp" />
+          <img src="https://jiazhiheng.github.io/vue3-carsouel-component/images/2.webp" />
+          <img src="https://jiazhiheng.github.io/vue3-carsouel-component/images/3.webp" />
+          <img src="https://jiazhiheng.github.io/vue3-carsouel-component/images/4.webp" />
+          <img src="https://jiazhiheng.github.io/vue3-carsouel-component/images/5.webp" />
+          <img src="https://jiazhiheng.github.io/vue3-carsouel-component/images/6.webp" />
+          <img src="https://jiazhiheng.github.io/vue3-carsouel-component/images/7.webp" />
+          <img src="https://jiazhiheng.github.io/vue3-carsouel-component/images/8.webp" />
           <template #arrow="{ prev, next }">
             <div class="custom-arrow">
               <button type="button" class="custom-arrow--left" @click="prev">
@@ -98,8 +105,9 @@ function pageChange(index) {}
 .custom-arrow {
   display: flex;
   position: absolute;
-  bottom: 25px;
-  right: 10px;
+  gap: 12px;
+  bottom: 12px;
+  right: 12px;
 }
 
 .custom-arrow button {
@@ -108,7 +116,6 @@ function pageChange(index) {}
   justify-content: center;
   width: 28px;
   height: 28px;
-  margin-right: 12px;
   color: #fff;
   background-color: rgba(255, 255, 255, 0.1);
   border-width: 0;
@@ -131,8 +138,8 @@ function pageChange(index) {}
   margin: 0;
   padding: 0;
   position: absolute;
-  bottom: 20px;
-  left: 20px;
+  bottom: 18px;
+  left: 18px;
 }
 
 .custom-dots li {

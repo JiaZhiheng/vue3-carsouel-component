@@ -22,7 +22,6 @@
           :delay="0"
           :loop="true"
           :defaultIndex="0"
-          @change="pageChange($event)"
         >
           <img src="https://jiazhiheng.github.io/vue3-carsouel-component/images/1.webp" />
           <img src="https://jiazhiheng.github.io/vue3-carsouel-component/images/2.webp" />
@@ -67,12 +66,6 @@ const usageCode = ref(`<template>${usageCodeMap[panelList[0].value].trim()}</tem
 
 function onPanelChange(panel) {
   usageCode.value = `<template>${usageCodeMap[panel].trim()}</template>`;
-}
-
-function pageChange(index) {}
-
-function print(msg) {
-  console.log(msg);
 }
 </script>
 

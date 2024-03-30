@@ -5,14 +5,13 @@
     :panel-list="panelList"
     @panel-change="onPanelChange"
   >
-    <template #swiper="{ configProps }">
+    <template #carousel="{ configProps }">
       <div :style="{ width: '800' }">
         <carousel
           ref="carousel"
           class="carousel"
           transitionStyle="all 4000ms linear"
-          :showDots="configProps.showDots"
-          :showArrow="configProps.showArrow"
+          v-bind="configProps"
           :effect="'scroll'"
           :delay="0"
           :loop="true"
@@ -33,21 +32,11 @@ import { cardListConfig } from './card.js';
 
 const cardList = ref(cardListConfig);
 const configList = ref(configJson);
-const panelList = [{ label: 'swiper', value: 'swiper' }];
+const panelList = [{ label: 'carousel', value: 'carousel' }];
 
 const usageCodeMap = {
-  swiper: `<carousel
-          ref="carousel"
-          class="carousel"
-          transitionStyle="all 300ms linear"
-          :showDots="configProps.showDots"
-          :showArrow="configProps.showArrow"
-          :effect="'slide'"
-          :delay="4000"
-          :loop="true"
-          @change="pageChange($event)"
-        ><div v-for="item in cardList" :style="item.style"></div>
-        </carousel>`
+  carousel:
+    '\n  <div :style="{ width: \'800\' }"> \n   <carousel ref="carousel" class="carousel" transitionStyle="all 4000ms linear" v-bind="configProps" :effect="\'scroll\'" :delay="0" :loop="true" @change="pageChange($event)"> \n   <img v-for="item in cardList" :src="item.src" /> \n </carousel> \n </div> \n'
 };
 
 const usageCode = ref(`<template>${usageCodeMap[panelList[0].value].trim()}</template>`);
