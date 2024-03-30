@@ -33,9 +33,9 @@
 
 <script setup>
 import { ref } from 'vue';
-// import Carousel from '../../../../src/components/carousel/Carousel.vue';
-import Carousel from '../../../../dist/carousel.es';
-import '../../../../dist/style.css';
+import Carousel from '../../../../src/components/carousel/Carousel.vue';
+// import Carousel from '../../../../dist/carousel.es';
+// import '../../../../dist/style.css';
 import CardFade from '../components/card/CardFade.vue';
 import CardSlide from '../components/card/CardSlide.vue';
 import CardScroll from '../components/card/CardScroll.vue';
