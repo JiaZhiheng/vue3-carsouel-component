@@ -70,6 +70,12 @@ function onPanelChange(panel) {
 </script>
 
 <style scoped>
+.carousel {
+  width: 480px;
+  height: 270px;
+  overflow: hidden;
+}
+
 img {
   width: 480px;
   height: 270px;

@@ -20,14 +20,18 @@
           :turnDirection="configProps.turnDirection"
           :delay="0"
           :loop="true"
+          :autoplay="false"
           :defaultIndex="0"
           @change="pageChange($event)"
         >
-          <img src="https://jiazhiheng.github.io/vue3-carsouel-component/images/1.webp" />
-          <img src="https://jiazhiheng.github.io/vue3-carsouel-component/images/2.webp" />
-          <img v-for="item in cardList" :src="item.src" />
-          <img src="https://jiazhiheng.github.io/vue3-carsouel-component/images/7.webp" />
-          <img src="https://jiazhiheng.github.io/vue3-carsouel-component/images/8.webp" />
+          <img class="img" src="https://jiazhiheng.github.io/vue3-carsouel-component/images/1.webp" />
+          <img class="img" src="https://jiazhiheng.github.io/vue3-carsouel-component/images/2.webp" />
+          <img class="img" src="https://jiazhiheng.github.io/vue3-carsouel-component/images/3.webp" />
+          <img class="img" src="https://jiazhiheng.github.io/vue3-carsouel-component/images/4.webp" />
+          <img class="img" src="https://jiazhiheng.github.io/vue3-carsouel-component/images/5.webp" />
+          <img class="img" src="https://jiazhiheng.github.io/vue3-carsouel-component/images/6.webp" />
+          <img class="img" src="https://jiazhiheng.github.io/vue3-carsouel-component/images/7.webp" />
+          <img class="img" src="https://jiazhiheng.github.io/vue3-carsouel-component/images/8.webp" />
         </carousel>
       </div>
     </template>
@@ -69,7 +73,13 @@ function pageChange(index) {}
 </script>
 
 <style scoped>
-img {
+.carousel {
+  width: 480px;
+  height: 270px;
+  overflow: hidden;
+}
+
+.img {
   width: 480px;
   height: 270px;
   object-fit: cover;

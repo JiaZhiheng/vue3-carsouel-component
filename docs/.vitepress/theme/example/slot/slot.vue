@@ -98,6 +98,12 @@ function pageChange(index) {}
 </script>
 
 <style scoped>
+.carousel {
+  width: 480px;
+  height: 270px;
+  overflow: hidden;
+}
+
 .custom-arrow {
   display: flex;
   position: absolute;

@@ -53,7 +53,7 @@ A Vue 3 carousel component
 
 完善示例文档
 
-轮播第一圈有间隙
+轮播第一圈有间隙 / 纯色标签验证
 
 跨页跳转动画 slie scroll
 

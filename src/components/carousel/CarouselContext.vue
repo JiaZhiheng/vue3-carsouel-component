@@ -1,6 +1,7 @@
+
 <template>
   <div class="card-container" :class="direction">
-    <div v-for="(slotContent, index) in slot" :key="slotContent.key" :style="itemStyle(index)" class="card-item"
+    <div v-for="(slotContent, index) in carouselItems" :key="slotContent.key" :style="getCarouselItemStyle(index)" class="card-item"
       ref="card">
       <component :is="slotContent"></component>
     </div>
@@ -9,7 +10,7 @@
 
 <script setup>
 import { carouselContextProps } from './props';
-import { ref, useSlots, computed, watch } from 'vue';
+import { ref, toRefs, useSlots, computed, watch } from 'vue';
 
 /**
  * 插槽内容
@@ -23,42 +24,65 @@ import { ref, useSlots, computed, watch } from 'vue';
  * 使用 flatMap 方法，将 VNode 虚拟节点下的 children 数组展平。
  * 此时我们就可以得到一个统一的卡片数组。
  */
-const slot = useSlots().default()[0].children.flatMap((child) => (typeof child.type !== 'symbol' ? [child] : child.children));
+const carouselItems = useSlots().default()[0].children.flatMap((child) => (typeof child.type !== 'symbol' ? [child] : child.children));
 const props = defineProps(carouselContextProps);
-const transitionStyle = ref(props.transitionStyle);
+const { direction, effect, total, indexCounter, transitionStyle, slidesPerView, spaceBetween } = toRefs(props);
+const transition = ref(transitionStyle.value);
 const card = ref(null);
 
 /**
- * 监听 props.direction 和 props.effect 的变化。
- * @description
- * 当 props.direction 变化时，卡片的位置会根据新的方向重新计算。
- * 「上一张卡片」 和 「下一张卡片」 切换到新的位置的过渡过程可能会遮挡到当前卡片，所以需要将过渡时间设置为 0。
- * 当 props.effect 变化时, 卡片的位置也可能会随之产生变化。
- * 特别是涉及到 fade 效果与其他效果切换的时候，卡片的位置、透明度和 z-index 属性都需要重新进行计算。
- * 「下一张卡片」 切换到新的位置的过渡过程可能会掠过当前卡片，所以也需要将过渡时间设置为 0。
+ * 监听 direction、effect 和 indexCounter 的变化 
+ * @description 
+ * 作用：当 direction、effect 和 indexCounter 变化时，更新过渡时间。
+ * 原因：当 direction 变化时，卡片的位置会根据新的方向重新计算。
+ *      「上一张卡片」 和 「下一张卡片」 切换到新的位置的过渡过程可能会遮挡到当前卡片，所以需要将过渡时间设置为 0。
  * 
- * 监听 props.indexCounter 的变化。
- * @description
- * 当 props.indexCounter 变化时，卡片的位置会根据新的索引重新计算。
- * 此时需要重新将过渡时间设置为 props.transitionStyle 以保证正常的过渡效果。
+ *      当 effect 变化时, 卡片的位置也可能会随之产生变化。
+ *      特别是涉及到 fade 效果与其他效果切换的时候，卡片的位置、透明度和 z-index 属性都需要重新进行计算。
+ *      「下一张卡片」 切换到新的位置的过渡过程可能会掠过当前卡片，所以也需要将过渡时间设置为 0。
+ * 
+ *      当 indexCounter 变化时，卡片的位置会根据新的索引重新计算。
+ *      此时需要重新将过渡时间设置为 transitionStyle 以保证正常的过渡效果。
+ * 目的：保证过渡效果的正常进行。
+ * 
  */
 watch(
-  () => [props.direction, props.effect],
+  () => [direction.value, effect.value],
   () => {
-    transitionStyle.value = '0';
+    transition.value = '0';
   }
 );
 
 watch(
-  () => props.indexCounter,
+  () => indexCounter.value,
   () => {
-    transitionStyle.value = props.transitionStyle;
+    transition.value = transitionStyle.value;
   }
 );
 
-// 获取 card-container 的宽高
-const cardContainerSize = computed(() => {
-  const { total, indexCounter, slidesPerView, spaceBetween, direction } = props;
+// 计算 card-container 尺寸
+const carouselContainerSize = computed(() =>
+  calculateCarouselContainerSize(
+    total.value,
+    indexCounter.value,
+    slidesPerView.value,
+    spaceBetween.value,
+    direction.value
+  )
+);
+
+// 生成轮播卡片样式
+const carouselItemStyles = computed(() =>
+  generateCarouselItemStyles(
+    total.value,
+    slidesPerView.value,
+    direction.value,
+    effect.value,
+    spaceBetween.value
+  )
+);
+
+function calculateCarouselContainerSize(total, indexCounter, slidesPerView, spaceBetween, direction) {
   // 确保 card.value 是一个数组
   if (!Array.isArray(card.value)) {
     return { width: '0px', height: '0px' };
@@ -109,65 +133,44 @@ const cardContainerSize = computed(() => {
       height: `${totalHeight}px`
     };
   }
-});
+}
 
-const config = computed(() =>
-  generateCardArray(
-    props.total,
-    props.slidesPerView,
-    props.direction,
-    props.effect,
-    props.spaceBetween
-  )
-);
-
-// 生成卡片数组
-function generateCardArray(total, slidesPerView, direction, effect, spaceBetween) {
-  const cardArray = [];
-  function getTransformValue(index, isLast) {
-    const offset = isLast
-      ? `calc(-100% - ${spaceBetween}px)`
-      : `calc(${index * 100}% + ${index * spaceBetween}px)`;
-    return direction === 'horizontal' ? `translateX(${offset})` : `translateY(${offset})`;
-  }
-  for (let i = 0; i < total; i++) {
+function generateCarouselItemStyles(total, slidesPerView, direction, effect, spaceBetween) {
+  return Array.from({ length: total }).map((_, i) => {
     const style = {};
+    const isLast = i === total - 1;
+    const offset = isLast ? `calc(-100% - ${spaceBetween}px)` : `calc(${i * 100}% + ${i * spaceBetween}px)`;
+    const transformValue = direction === 'horizontal' ? `translateX(${offset})` : `translateY(${offset})`;
     if (effect === 'slide' || effect === 'scroll') {
-      if (i <= slidesPerView) {
-        style.transform = getTransformValue(i, false);
-      } else if (i === total - 1) {
-        style.transform = getTransformValue(0, true);
-      } else {
-        style.display = 'none';
-      }
+      style.transform = i <= slidesPerView || isLast ? transformValue : '';
+      style.display = i <= slidesPerView || isLast ? '' : 'none';
     } else {
       style.opacity = i < slidesPerView ? 1 : 0;
       style.zIndex = i < slidesPerView ? 1 : 0;
     }
-    cardArray.push(style);
-  }
-  return cardArray;
+    return style;
+  });
 }
 
-function itemStyle(index) {
-  return config.value[(index + props.indexCounter) % config.value.length];
+function getCarouselItemStyle(index) {
+  return carouselItemStyles.value[(index + indexCounter.value) % carouselItemStyles.value.length];
 }
 </script>
 
 <style scoped lang="scss">
 .card-container {
-  width: v-bind('cardContainerSize.width');
-  height: v-bind('cardContainerSize.height');
+  width: v-bind('carouselContainerSize.width');
+  height: v-bind('carouselContainerSize.height');
   overflow: hidden;
   position: relative;
   border-radius: 12px;
-  transform: rotate(0);
   cursor: pointer;
 }
 
 .card-item {
   position: absolute;
   border-radius: 12px;
-  transition: v-bind('transitionStyle');
+  transition: v-bind('transition');
 }
 </style>
+
