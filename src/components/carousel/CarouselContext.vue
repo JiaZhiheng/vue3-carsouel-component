@@ -5,6 +5,7 @@
       :key="slotContent.key"
       :style="itemStyle(index)"
       class="card-item"
+      ref="card"
     >
       <component :is="slotContent"></component>
     </div>
@@ -22,6 +23,8 @@ const slot = useSlots()
 const props = defineProps(carouselContextProps);
 
 const transitionStyle = ref(props.transitionStyle);
+
+const card = ref(null);
 
 watch(
   () => props.direction,
@@ -44,11 +47,48 @@ watch(
   }
 );
 
+// 获取 card-container 的宽高
 const cardSize = computed(() => {
-  return `calc(${100 / props.slidesPerView}% - ${
-    (props.spaceBetween * (props.slidesPerView - 1)) / props.slidesPerView
-  }px)`;
+  const { total, indexCounter, slidesPerView, spaceBetween } = props;
+  const offset = (total - indexCounter) % total;
+  const cardSizeList = card.value.map((item) => {
+    const { width, height } = item.getBoundingClientRect();
+    return {
+      width: `${width}px`,
+      height: `${height}px`
+    };
+  });
+
+  const arr = cardSizeList.slice(offset, slidesPerView + offset);
+  if (props.direction === 'horizontal') {
+    const cardWidth = arr.reduce((prev, { width }) => prev + parseInt(width), 0);
+    const spaceTotal = (slidesPerView - 1) * spaceBetween;
+    const width = cardWidth + spaceTotal;
+    const height = Math.max(...arr.map(({ height }) => parseInt(height)));
+    return {
+      width: `${width}px`,
+      height: `${height}px`
+    };
+  }
+  if (props.direction === 'vertical') {
+    const cardHeight = arr.reduce((prev, { height }) => prev + parseInt(height), 0);
+    const spaceTotal = (slidesPerView - 1) * spaceBetween;
+    const height = cardHeight + spaceTotal;
+    const width = Math.max(...arr.map(({ width }) => parseInt(width)));
+    return {
+      width: `${width}px`,
+      height: `${height}px`
+    };
+  }
 });
+
+// 宽度 * 卡片数量 + （卡片数量 - 1） * 间隙
+
+// const cardSize = computed(() => {
+//   return `calc(${100 / props.slidesPerView}% - ${
+//     (props.spaceBetween * (props.slidesPerView - 1)) / props.slidesPerView
+//   }px)`;
+// });
 
 const config = computed(() =>
   generateCardArray(
@@ -95,31 +135,17 @@ function itemStyle(index) {
 
 <style scoped lang="scss">
 .card-container {
-  width: 100%;
-  height: 100%;
+  width: v-bind('cardSize.width');
+  height: v-bind('cardSize.height');
   overflow: hidden;
   position: relative;
   border-radius: 12px;
   transform: rotate(0);
   cursor: pointer;
-
-  &.horizontal {
-    .card-item {
-      width: v-bind('cardSize');
-    }
-  }
-
-  &.vertical {
-    .card-item {
-      height: v-bind('cardSize');
-    }
-  }
 }
 
 .card-item {
   position: absolute;
-  width: 100%;
-  height: 100%;
   border-radius: 12px;
   transition: v-bind('transitionStyle');
 }

@@ -5,7 +5,7 @@
     :panel-list="panelList"
     @panel-change="onPanelChange"
   >
-    <template #swiper="{ configProps }">
+    <template #carousel="{ configProps }">
       <div :style="{ width: '800' }">
         <carousel
           ref="carousel"
@@ -20,16 +20,17 @@
           :effect="'slide'"
           :delay="4000"
           :loop="true"
+          :autoplay="false"
           @change="pageChange($event)"
         >
-          <img src="https://jiazhiheng.github.io/vue3-carsouel-component/images/1.webp" />
-          <img src="https://jiazhiheng.github.io/vue3-carsouel-component/images/2.webp" />
-          <img src="https://jiazhiheng.github.io/vue3-carsouel-component/images/3.webp" />
-          <img src="https://jiazhiheng.github.io/vue3-carsouel-component/images/4.webp" />
-          <img src="https://jiazhiheng.github.io/vue3-carsouel-component/images/5.webp" />
-          <img src="https://jiazhiheng.github.io/vue3-carsouel-component/images/6.webp" />
-          <img src="https://jiazhiheng.github.io/vue3-carsouel-component/images/7.webp" />
-          <img src="https://jiazhiheng.github.io/vue3-carsouel-component/images/8.webp" />
+          <img class="img" src="https://jiazhiheng.github.io/vue3-carsouel-component/images/1.webp" />
+          <img class="img" src="https://jiazhiheng.github.io/vue3-carsouel-component/images/2.webp" />
+          <img class="img" src="https://jiazhiheng.github.io/vue3-carsouel-component/images/3.webp" />
+          <img class="img" src="https://jiazhiheng.github.io/vue3-carsouel-component/images/4.webp" />
+          <img class="img" src="https://jiazhiheng.github.io/vue3-carsouel-component/images/5.webp" />
+          <img class="img" src="https://jiazhiheng.github.io/vue3-carsouel-component/images/6.webp" />
+          <img class="img" src="https://jiazhiheng.github.io/vue3-carsouel-component/images/7.webp" />
+          <img class="img" src="https://jiazhiheng.github.io/vue3-carsouel-component/images/8.webp" />
           <template #arrow="{ prev, next }">
             <div class="custom-arrow">
               <button type="button" class="custom-arrow--left" @click="prev">
@@ -70,10 +71,10 @@ import { cardListConfig } from './card.js';
 
 const cardList = ref(cardListConfig);
 const configList = ref(configJson);
-const panelList = [{ label: 'swiper', value: 'swiper' }];
+const panelList = [{ label: 'carousel', value: 'carousel' }];
 
 const usageCodeMap = {
-  swiper: `<carousel
+  carousel: `<carousel
           ref="carousel"
           class="carousel"
           transitionStyle="all 300ms linear"
@@ -97,11 +98,6 @@ function pageChange(index) {}
 </script>
 
 <style scoped>
-.carousel {
-  width: 480px;
-  height: 270px;
-}
-
 .custom-arrow {
   display: flex;
   position: absolute;
@@ -156,5 +152,11 @@ function pageChange(index) {}
 .custom-dots li.is-active {
   width: 40px;
   background: #fff;
+}
+
+.img {
+  display: block;
+  width: 480px;
+  height: 270px;
 }
 </style>

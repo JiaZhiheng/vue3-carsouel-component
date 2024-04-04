@@ -26,7 +26,7 @@
 
 <script setup lang="jsx">
 /* eslint-disable */
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 import configJson from './props.json';
 import { cardListConfig } from './card.js';
 

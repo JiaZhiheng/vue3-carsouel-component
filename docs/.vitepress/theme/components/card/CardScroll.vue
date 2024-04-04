@@ -14,8 +14,8 @@ const props = defineProps({
 
 <style scoped>
 .item {
-  height: 100%;
-  width: 100%;
+  width: 312px;
+  height: 264px;
   border-radius: 12px;
   font-size: 40px;
   font-weight: bold;

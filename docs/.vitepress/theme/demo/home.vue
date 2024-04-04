@@ -18,6 +18,7 @@
           :arrow-placement="carouselItem.arrowPlacement"
           :dot-placement="carouselItem.dotPlacement"
           :delay="carouselItem.delay"
+          :autoplay="false"
         >
           <component
             v-for="item in carouselItem.config"
@@ -65,7 +66,8 @@ const config = ref([
     transitionStyle: 'all 300ms linear',
     showArrow: 'never',
     showDots: 'never',
-    delay: 1400
+    delay: 1400,
+    autoplay: false
   },
   {
     config: scrollConfig,

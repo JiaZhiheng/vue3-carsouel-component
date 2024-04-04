@@ -28,10 +28,9 @@ const props = defineProps({
 }
 
 .item {
-  height: 100%;
-  width: 100%;
+  width: 312px;
+  height: 264px;
   border-radius: 12px;
-  position: absolute;
   background-color: transparent;
   overflow: hidden;
   color: #fff;

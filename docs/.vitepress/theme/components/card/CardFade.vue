@@ -20,8 +20,8 @@ const props = defineProps({
 
 <style scoped>
 .item {
-  height: 100%;
-  width: 100%;
+  height: 544px;
+  width: 968px;
   border-radius: 12px;
   padding: 20px;
 }

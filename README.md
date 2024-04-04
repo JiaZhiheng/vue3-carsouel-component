@@ -67,6 +67,10 @@ A Vue 3 carousel component
 
 代码整理 文件结构整理
 
+多张切换 / 一次切一组
+
+加速轮播
+
 css 瘦身 检查 z-index 必要性
 
 重构代码展示组件 抽离到 npm
@@ -80,3 +84,5 @@ TypeScript
 node
 
 react
+
+致谢
