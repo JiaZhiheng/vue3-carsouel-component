@@ -49,8 +49,10 @@ function pageChange(index) {}
 </script>
 
 <style scoped>
-.carousel {
+img {
   width: 480px;
   height: 270px;
+  object-fit: cover;
+  display: block;
 }
 </style>

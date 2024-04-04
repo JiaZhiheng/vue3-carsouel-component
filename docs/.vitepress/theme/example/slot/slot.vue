@@ -155,8 +155,9 @@ function pageChange(index) {}
 }
 
 .img {
-  display: block;
   width: 480px;
   height: 270px;
+  object-fit: cover;
+  display: block;
 }
 </style>

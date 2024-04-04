@@ -51,10 +51,6 @@ A Vue 3 carousel component
 
 ### Bugs && 待检验
 
-加注释
-
-优化宽度计算代码
-
 完善示例文档
 
 轮播第一圈有间隙
