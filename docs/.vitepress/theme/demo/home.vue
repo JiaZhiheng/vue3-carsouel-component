@@ -18,7 +18,6 @@
           :arrow-placement="carouselItem.arrowPlacement"
           :dot-placement="carouselItem.dotPlacement"
           :delay="carouselItem.delay"
-          :autoplay="false"
         >
           <component
             v-for="item in carouselItem.config"

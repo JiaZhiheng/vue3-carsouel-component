@@ -32,6 +32,7 @@ const props = defineProps({
   height: 264px;
   border-radius: 12px;
   background-color: transparent;
+  position: relative;
   overflow: hidden;
   color: #fff;
   text-align: center;

@@ -48,47 +48,47 @@ watch(
 );
 
 // 获取 card-container 的宽高
-const cardSize = computed(() => {
-  const { total, indexCounter, slidesPerView, spaceBetween } = props;
+const cardContainerSize = computed(() => {
+  const { total, indexCounter, slidesPerView, spaceBetween, direction } = props;
+  // 确保 card.value 是一个数组
+  if (!Array.isArray(card.value)) {
+    return { width: '0px', height: '0px' };
+  }
+
+  // 使用 offset 定位切片的起点
   const offset = (total - indexCounter) % total;
-  const cardSizeList = card.value.map((item) => {
-    const { width, height } = item.getBoundingClientRect();
-    return {
-      width: `${width}px`,
-      height: `${height}px`
+  // 计算每个卡片的尺寸列表
+  const cardDimensions = card.value.map(item => {
+    const rect = item.getBoundingClientRect();
+    return { 
+      width: rect.width,
+      height: rect.height
     };
   });
 
-  const arr = cardSizeList.slice(offset, slidesPerView + offset);
-  if (props.direction === 'horizontal') {
-    const cardWidth = arr.reduce((prev, { width }) => prev + parseInt(width), 0);
-    const spaceTotal = (slidesPerView - 1) * spaceBetween;
-    const width = cardWidth + spaceTotal;
-    const height = Math.max(...arr.map(({ height }) => parseInt(height)));
-    return {
-      width: `${width}px`,
-      height: `${height}px`
+  // 截取需要的卡片切片
+  const visibleCards = cardDimensions.slice(offset, offset + slidesPerView);
+
+  // 计算总间距
+  const totalSpacing = (slidesPerView - 1) * spaceBetween;
+
+  // 根据布局方向计算卡片尺寸
+  if (direction === 'horizontal') {
+    const totalWidth = visibleCards.reduce((sum, { width }) => sum + width, totalSpacing);
+    const maxHeight = Math.max(...visibleCards.map(({ height }) => height));
+    return { 
+      width: `${totalWidth}px`, 
+      height: `${maxHeight}px` 
     };
-  }
-  if (props.direction === 'vertical') {
-    const cardHeight = arr.reduce((prev, { height }) => prev + parseInt(height), 0);
-    const spaceTotal = (slidesPerView - 1) * spaceBetween;
-    const height = cardHeight + spaceTotal;
-    const width = Math.max(...arr.map(({ width }) => parseInt(width)));
-    return {
-      width: `${width}px`,
-      height: `${height}px`
+  } else { // direction === 'vertical'
+    const totalHeight = visibleCards.reduce((sum, { height }) => sum + height, totalSpacing);
+    const maxWidth = Math.max(...visibleCards.map(({ width }) => width));
+    return { 
+      width: `${maxWidth}px`, 
+      height: `${totalHeight}px` 
     };
   }
 });
-
-// 宽度 * 卡片数量 + （卡片数量 - 1） * 间隙
-
-// const cardSize = computed(() => {
-//   return `calc(${100 / props.slidesPerView}% - ${
-//     (props.spaceBetween * (props.slidesPerView - 1)) / props.slidesPerView
-//   }px)`;
-// });
 
 const config = computed(() =>
   generateCardArray(
@@ -135,8 +135,8 @@ function itemStyle(index) {
 
 <style scoped lang="scss">
 .card-container {
-  width: v-bind('cardSize.width');
-  height: v-bind('cardSize.height');
+  width: v-bind('cardContainerSize.width');
+  height: v-bind('cardContainerSize.height');
   overflow: hidden;
   position: relative;
   border-radius: 12px;
