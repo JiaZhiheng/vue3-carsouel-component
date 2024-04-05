@@ -85,4 +85,10 @@ node
 
 react
 
-致谢
+### 致谢
+
+感谢我尊敬的大学室友 康斯坦丁·益铭王爵士 为本项目提供了诸多宝贵建议以及解决方案、特别是在解决 tdesign-site-components 库引入后导致 ssr 构建失败的问题上作出的杰出贡献。
+
+他的 GitHub ⬇️
+
+<a href="https://github.com/peterpeterkang"><img width="40px;" src="https://avatars.githubusercontent.com/peterpeterkang"></a>
