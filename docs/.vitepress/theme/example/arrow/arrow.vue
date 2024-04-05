@@ -22,6 +22,7 @@
           :delay="0"
           :loop="true"
           :defaultIndex="0"
+          :trigger="'hover'"
         >
           <img src="https://jiazhiheng.github.io/vue3-carsouel-component/images/1.webp" />
           <img src="https://jiazhiheng.github.io/vue3-carsouel-component/images/2.webp" />

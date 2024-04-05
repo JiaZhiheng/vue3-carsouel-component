@@ -31,18 +31,15 @@ const transition = ref(transitionStyle.value);
 const card = ref(null);
 
 /**
- * 监听 direction、effect 和 indexCounter 的变化 
+ * 监听 direction 和 effect 的变化 
  * @description 
- * 作用：当 direction、effect 和 indexCounter 变化时，更新过渡时间。
+ * 作用：当 direction 和 effect 变化时，更新过渡时间。
  * 原因：当 direction 变化时，卡片的位置会根据新的方向重新计算。
  *      「上一张卡片」 和 「下一张卡片」 切换到新的位置的过渡过程可能会遮挡到当前卡片，所以需要将过渡时间设置为 0。
- * 
  *      当 effect 变化时, 卡片的位置也可能会随之产生变化。
  *      特别是涉及到 fade 效果与其他效果切换的时候，卡片的位置、透明度和 z-index 属性都需要重新进行计算。
  *      「下一张卡片」 切换到新的位置的过渡过程可能会掠过当前卡片，所以也需要将过渡时间设置为 0。
- * 
- *      当 indexCounter 变化时，卡片的位置会根据新的索引重新计算。
- *      此时需要重新将过渡时间设置为 transitionStyle 以保证正常的过渡效果。
+ *      当卡片位置调整过后需要重新将过渡时间设置为 transitionStyle 以保证正常的过渡效果。
  * 目的：保证过渡效果的正常进行。
  * 
  */
@@ -50,13 +47,9 @@ watch(
   () => [direction.value, effect.value],
   () => {
     transition.value = '0';
-  }
-);
-
-watch(
-  () => indexCounter.value,
-  () => {
-    transition.value = transitionStyle.value;
+    setTimeout(() => {
+      transition.value = transitionStyle.value;
+    }, 0);
   }
 );
 

@@ -2,10 +2,9 @@
   <ul class="dots" :class="[showDots, dotPlacement]">
     <li
       :class="[getItemClass(index), dotType]"
-      v-for="(item, index) in config"
-      :key="item.id"
-      @mouseenter="trigger === 'hover' ? handleMouseEnter(index) : null"
-      @click="trigger === 'click' ? to(index) : null"
+      v-for="(item, index) in carouselItemStatuses"
+      @mouseenter="handleEvent('hover', index)"
+      @click="handleEvent('click', index)"
     ></li>
   </ul>
 </template>
@@ -14,27 +13,21 @@
 import { carouselDotsProps } from './props';
 
 const props = defineProps(carouselDotsProps);
-const config = generateCardArray(props.total, props.slidesPerView);
+const carouselItemStatuses = generateCarouselItemStatuses(props.total, props.slidesPerView);
 const emit = defineEmits(['to']);
 
-function generateCardArray(total, slidesPerView) {
-  const cardArray = [];
-  for (let i = 0; i < total; i++) {
-    i < slidesPerView ? cardArray.push('current') : cardArray.push('');
-  }
-  return cardArray;
+function generateCarouselItemStatuses(total, slidesPerView) {
+  return Array.from({ length: total }, (_, i) => (i < slidesPerView ? 'current' : ''));
 }
 
 function getItemClass(index) {
-  return config[(index + props.indexCounter) % config.length];
+  return carouselItemStatuses[(index + props.indexCounter) % carouselItemStatuses.length];
 }
 
-function to(index) {
-  emit('to', index);
-}
-
-function handleMouseEnter(index) {
-  this.to(index);
+function handleEvent(triggerType, index) {
+  if (props.trigger === triggerType) {
+     emit('to', index);
+  }
 }
 </script>
 
@@ -172,3 +165,6 @@ function handleMouseEnter(index) {
   }
 }
 </style>
+
+
+
