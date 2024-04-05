@@ -1,8 +1,7 @@
-
 <template>
   <div class="card-container" :class="direction">
-    <div v-for="(slotContent, index) in carouselItems" :key="slotContent.key" :style="getCarouselItemStyle(index)" class="card-item"
-      ref="card">
+    <div v-for="(slotContent, index) in carouselItems" :key="slotContent.key" :style="getCarouselItemStyle(index)"
+      class="card-item" ref="card">
       <component :is="slotContent"></component>
     </div>
   </div>
@@ -41,7 +40,9 @@ const card = ref(null);
  *      「下一张卡片」 切换到新的位置的过渡过程可能会掠过当前卡片，所以也需要将过渡时间设置为 0。
  *      当卡片位置调整过后需要重新将过渡时间设置为 transitionStyle 以保证正常的过渡效果。
  * 目的：保证过渡效果的正常进行。
- * 
+ * 注意：为什么用 setTimeout 不用 nextTick？
+ *      使用 nextTick 会导致「下一张卡片」 切换到新的位置的过渡过程可能会掠过当前卡片。
+ *      所以需要使用 setTimeout 来保证过渡效果的正常进行。
  */
 watch(
   () => [direction.value, effect.value],
@@ -75,15 +76,21 @@ const carouselItemStyles = computed(() =>
   )
 );
 
+/**
+ * card-container 尺寸计算公式
+ * @description
+ * 水平轮播图
+ *    宽度：显示卡片数量 * 卡片宽度 + (显示卡片数量 - 1) * 间隙宽度
+ *    高度：显示卡片高度的最大值
+ * 垂直轮播图
+ *    宽度：显示卡片宽度的最大值
+ *    高度：显示卡片数量 * 卡片高度 + (显示卡片数量 - 1) * 间隙宽度
+ */
 function calculateCarouselContainerSize(total, indexCounter, slidesPerView, spaceBetween, direction) {
-  // 确保 card.value 是一个数组
   if (!Array.isArray(card.value)) {
     return { width: '0px', height: '0px' };
   }
-
-  // 使用 offset 定位切片的起点
   const offset = (total - indexCounter) % total;
-  // 计算每个卡片的尺寸列表
   const cardDimensions = card.value.map(item => {
     const rect = item.getBoundingClientRect();
     return {
@@ -91,26 +98,17 @@ function calculateCarouselContainerSize(total, indexCounter, slidesPerView, spac
       height: rect.height
     };
   });
-
-  // 计算需要截取的终点索引
   let end = offset + slidesPerView;
   let visibleCards;
-  // 判断是否需要从头部继续取值
   if (end <= total) {
-    // 截取需要的卡片切片
     visibleCards = cardDimensions.slice(offset, end);
   } else {
-    // 截取尾部和头部的卡片切片，并进行合并
     visibleCards = [
       ...cardDimensions.slice(offset, total),
       ...cardDimensions.slice(0, end % total)
     ];
   }
-
-  // 计算总间距
   const totalSpacing = (slidesPerView - 1) * spaceBetween;
-
-  // 根据布局方向计算卡片尺寸
   if (direction === 'horizontal') {
     const totalWidth = visibleCards.reduce((sum, { width }) => sum + width, totalSpacing);
     const maxHeight = Math.max(...visibleCards.map(({ height }) => height));
@@ -118,7 +116,7 @@ function calculateCarouselContainerSize(total, indexCounter, slidesPerView, spac
       width: `${totalWidth}px`,
       height: `${maxHeight}px`
     };
-  } else { // direction === 'vertical'
+  } else {
     const totalHeight = visibleCards.reduce((sum, { height }) => sum + height, totalSpacing);
     const maxWidth = Math.max(...visibleCards.map(({ width }) => width));
     return {
@@ -166,4 +164,3 @@ function getCarouselItemStyle(index) {
   transition: v-bind('transition');
 }
 </style>
-
