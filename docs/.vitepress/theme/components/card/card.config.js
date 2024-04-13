@@ -1,40 +1,57 @@
 export const fadeConfig = [
-  {
+  // {
+  //   id: 1,
+  //   name: 'Vue3-Carousel-Component',
+  //   info: '轮播图组件',
+  //   description:
+  //     'Vue3-Carousel-Component 是一个用 Vue 3 构建的轮播组件。提供了丰富的功能和灵活性，用于创建现代化的轮播效果。',
+  //   linkList: [
+  //     {
+  //       icon: '/Blog/icon/link.svg',
+  //       text: '项目链接',
+  //       url: 'https://jiazhiheng.github.io/vue3-carsouel-component/'
+  //     },
+  //     {
+  //       icon: '/Blog/icon/github.svg',
+  //       text: '项目源码',
+  //       url: 'https://github.com/JiaZhiheng/vue3-carsouel-component'
+  //     },
+  //     {
+  //       icon: '/Blog/icon/npmjs.svg',
+  //       text: 'npm包',
+  //       url: 'https://www.npmjs.com/package/vue3-carousel-component'
+  //     }
+  //   ],
+  //   styleObject: {
+  //     backgroundColor: 'rgba(80, 190, 250, 0.2)'
+  //   },
+  //   imgStyle: {
+  //     width: '256px',
+  //     height: '256px'
+  //   },
+  //   img: {
+  //     src: '../../../../public/project/carousel.png',
+  //     alt: 'Vue3-Carousel-Component'
+  //   },
+  //   infoStyle: {
+  //     color: '#5E95FA'
+  //   }
+  // },
+   {
     id: 1,
-    name: 'Vue3-Carousel-Component',
-    info: '轮播图组件',
-    description:
-      'Vue3-Carousel-Component 是一个用 Vue 3 构建的轮播组件。提供了丰富的功能和灵活性，用于创建现代化的轮播效果。',
-    linkList: [
-      {
-        icon: '/Blog/icon/link.svg',
-        text: '项目链接',
-        url: 'https://jiazhiheng.github.io/vue3-carsouel-component/'
-      },
-      {
-        icon: '/Blog/icon/github.svg',
-        text: '项目源码',
-        url: 'https://github.com/JiaZhiheng/vue3-carsouel-component'
-      },
-      {
-        icon: '/Blog/icon/npmjs.svg',
-        text: 'npm包',
-        url: 'https://www.npmjs.com/package/vue3-carousel-component'
-      }
-    ],
+    name: '项目B',
+    info: '别催啦，已经在做啦【实际：新建文件夹】',
+    description: '',
+    url: 'http://101.43.140.74:64/',
+    source: 'https://github.com/JiaZhiheng',
     styleObject: {
       backgroundColor: 'rgba(80, 190, 250, 0.2)'
     },
-    imgStyle: {
-      width: '256px',
-      height: '256px'
-    },
-    img: {
-      src: '../../../../public/project/carousel.png',
-      alt: 'Vue3-Carousel-Component'
-    },
     infoStyle: {
-      color: '#5E95FA'
+      color: 'rgb(80, 190, 250)'
+    },
+    imgStyle: {
+      display: 'none'
     }
   },
   {

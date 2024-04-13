@@ -59,6 +59,12 @@ A Vue 3 carousel component
 
 禁用循环播放时 最后一页到首页怎么跳
 
+postcss
+
+img 标签块行二象性
+
+轮播图套娃
+
 ### 后续更新计划
 
 检查代码规范

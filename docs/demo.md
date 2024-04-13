@@ -1,1 +1,6 @@
-<!-- <Demo></Demo> -->
+---
+layout: home
+---
+
+
+<Demo></Demo>
