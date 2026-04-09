@@ -1,9 +1,15 @@
 <template>
-  <PlayGround></PlayGround>
+  <ClientOnly>
+    <PlayGround />
+  </ClientOnly>
 </template>
 
 <script setup>
-import PlayGround from '../components/playground/playground.vue';
+import { defineAsyncComponent } from 'vue';
+
+const PlayGround = defineAsyncComponent(() =>
+  import('../components/playground/playground.vue')
+);
 </script>
 
 <style>
