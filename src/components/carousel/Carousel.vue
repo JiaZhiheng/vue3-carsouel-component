@@ -62,6 +62,8 @@ const playIntervalId = ref(null);
 const carouselContext = ref(null);
 const currentIndex = computed(() => (total - indexCounter.value) % total);
 const waitingForPlay = ref(false);
+// 节流后的 to 方法引用，在 onMounted 中初始化
+let throttledTo = null;
 /**
  * 轮播图自动播放锁
  * @type {Ref<boolean>}
@@ -121,7 +123,11 @@ function throttleTo(index) {
 
 // 滑动至某一页
 function to(index) {
-  throttle(throttleTo(index), getTransitionDuration());
+  if (throttledTo) {
+    throttledTo(index);
+  } else {
+    throttleTo(index); // DOM 未就绪时的 fallback
+  }
 }
 
 // 滑动至前一页 (手动)
@@ -172,12 +178,12 @@ function init() {
 onMounted(() => {
   setTimeout(init, props.delay);
   document.addEventListener('visibilitychange', handleVisibilityChange);
-  to = throttle(throttleTo, getTransitionDuration()); // 初始化节流后的 to 方法
   /**
-   * 为什么要在页面加载完成时初始化节流后的 to 方法？
-   * 因为在页面加载完成之前，DOM 还未加载完成，无法获取到元素样式，所以无法获取到过渡时间，会导致节流后的 to 方法无法正常工作。
-   * 所以在页面加载完成之后，获取到过渡时间后再初始化节流后的 to 方法。
+   * 在 DOM 就绪后初始化节流函数，因为需要从 DOM 获取过渡时间。
+   * 通过 throttledTo 间接引用，to() 函数始终保持同一引用，
+   * 确保 defineExpose 和模板 slot 中传出的 to 始终有效。
    */
+  throttledTo = throttle(throttleTo, getTransitionDuration());
 });
 
 // 监听页面卸载事件

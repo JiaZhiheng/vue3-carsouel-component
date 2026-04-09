@@ -54,16 +54,4 @@ export function throttle(func, delay) {
   };
 }
 
-/**
- * 点击元素获取几何中心坐标
- * @example document.addEventListener('click', getClickedElementCenter);
- */
-export function getClickedElementCenter(event) {
-  const clickedElement = event.target;
 
-  const rect = clickedElement.getBoundingClientRect();
-  const centerX = rect.left + rect.width / 2;
-  const centerY = rect.top + rect.height / 2;
-
-  console.log('Clicked Element Center:', { x: centerX, y: centerY });
-}

@@ -10,18 +10,19 @@
 </template>
 
 <script setup>
+import { computed } from 'vue';
 import { carouselDotsProps } from './props';
 
 const props = defineProps(carouselDotsProps);
-const carouselItemStatuses = generateCarouselItemStatuses(props.total, props.slidesPerView);
 const emit = defineEmits(['to']);
 
-function generateCarouselItemStatuses(total, slidesPerView) {
-  return Array.from({ length: total }, (_, i) => (i < slidesPerView ? 'current' : ''));
-}
+const carouselItemStatuses = computed(() =>
+  Array.from({ length: props.total }, (_, i) => (i < props.slidesPerView ? 'current' : ''))
+);
 
 function getItemClass(index) {
-  return carouselItemStatuses[(index + props.indexCounter) % carouselItemStatuses.length];
+  const statuses = carouselItemStatuses.value;
+  return statuses[(index + props.indexCounter) % statuses.length];
 }
 
 function handleEvent(triggerType, index) {

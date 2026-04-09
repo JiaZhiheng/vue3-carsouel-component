@@ -25,7 +25,7 @@ export default defineConfig({
       entry: resolve('src/components/carousel/index.js'),
       name: 'carousel',
       fileName: (format) => `carousel.${format}.js`,
-      formats: ['es', 'umd', 'cjs', 'iife']
+      formats: ['es', 'umd']
     },
     rollupOptions: {
       external: ['vue'],
@@ -34,7 +34,6 @@ export default defineConfig({
           vue: 'Vue'
         }
       }
-    },
-    minify: false // 禁用代码压缩
+    }
   }
 });

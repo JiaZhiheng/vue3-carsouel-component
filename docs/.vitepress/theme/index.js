@@ -10,25 +10,12 @@ import Slot from './example/slot/slot.vue';
 import Demo from './demo/demo.vue';
 import Home from './demo/home.vue';
 import './custom.css';
-import { basicSetup } from 'codemirror'
-import VueCodemirror from 'vue-codemirror'
 
 
 export default {
   ...DefaultTheme,
   NotFound: () => 'custom 404', // 404 页面
   enhanceApp({ app }) {
-    app.use(VueCodemirror, {
-      // optional default global options
-      autofocus: true,
-      disabled: false,
-      indentWithTab: true,
-      tabSize: 2,
-      placeholder: 'Code goes here...',
-      extensions: [basicSetup]
-      // ...
-    })
-
     // 注册全局组件
     app.component('carousel', Carousel);
     app.component('BaseUsage', BaseUsage);

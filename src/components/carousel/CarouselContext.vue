@@ -23,7 +23,10 @@ import { ref, toRefs, useSlots, computed, watch } from 'vue';
  * 使用 flatMap 方法，将 VNode 虚拟节点下的 children 数组展平。
  * 此时我们就可以得到一个统一的卡片数组。
  */
-const carouselItems = useSlots().default()[0].children.flatMap((child) => (typeof child.type !== 'symbol' ? [child] : child.children));
+// 统一处理 v-for 和静态 slot 的卡片，使用与 Carousel.vue 一致的展平方式
+const carouselItems = useSlots()
+  .default()
+  .flatMap((child) => (typeof child.type !== 'symbol' ? [child] : child.children));
 const props = defineProps(carouselContextProps);
 const { direction, effect, total, indexCounter, transitionStyle, slidesPerView, spaceBetween } = toRefs(props);
 const transition = ref(transitionStyle.value);

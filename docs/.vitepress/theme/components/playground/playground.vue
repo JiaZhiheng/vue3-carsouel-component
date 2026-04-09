@@ -1,72 +1,88 @@
-<template>
-  <codemirror
-    v-model="code"
-    placeholder="Code goes here..."
-    :style="{ height: '400px' }"
-    :autofocus="true"
-    :indent-with-tab="true"
-    :tab-size="2"
-    :extensions="extensions"
-    @ready="handleReady"
-    @change="editorChange($event)"
-    @focus="log('focus', $event)"
-    @blur="log('blur', $event)"
-  />
-  <iframe class="iframe" :srcdoc="code"></iframe>
-</template>
+
 
 <script setup>
-import { Codemirror } from 'vue-codemirror'
-import { javascript } from '@codemirror/lang-javascript'
-import { oneDark } from '@codemirror/theme-one-dark'
-import { ref, shallowRef } from 'vue'
+import { watchEffect, ref } from 'vue'
+import { Repl, useStore, useVueImportMap } from '@vue/repl'
+import Monaco from '@vue/repl/monaco-editor'
 
-const code = ref(`
-  <html>
-    <head>
-      <title>Vue 3 Playground</title>
-      <script type="text/javascript">
-        window.onload = function() {
-          document.body.append('Script executed');
-        };
-      <\/script>
-    </head>
-    <body>
-      <h1>Hello Vue 3!</h1>
-      <p>CodeMirror Editor</p>
+const useSSRMode = ref(true)
 
-      <style>
-        p {
-          color: red;
-        }
-      </style>
-    </body>
-  </html>
-`);
+const theme = ref<'dark' | 'light'>('light')
 
-const extensions = [javascript(), oneDark]
+// retrieve some configuration options from the URL
+const query = new URLSearchParams(location.search)
 
-// Codemirror EditorView instance ref
-const view = shallowRef()
-const handleReady = (payload) => {
-  view.value = payload.view
-}
+const {
+  importMap: builtinImportMap,
+  vueVersion,
+  productionMode,
+} = useVueImportMap({
+  // specify the default URL to import Vue runtime from in the sandbox
+  // default is the CDN link from jsdelivr.com with version matching Vue's version
+  // from peerDependency
+  runtimeDev: 'cdn link to vue.runtime.esm-browser.js',
+  runtimeProd: 'cdn link to vue.runtime.esm-browser.prod.js',
+  serverRenderer: 'cdn link to server-renderer.esm-browser.js',
+})
 
-function editorChange(event) {
-  code.value = event
-}
+const store = useStore(
+  {
+    // pre-set import map
+    builtinImportMap,
+    vueVersion,
+    // starts on the output pane (mobile only) if the URL has a showOutput query
+    showOutput: ref(query.has('showOutput')),
+    // starts on a different tab on the output pane if the URL has a outputMode query
+    // and default to the "preview" tab
+    outputMode: ref(query.get('outputMode') || 'preview'),
+  },
+  // initialize repl with previously serialized state
+  location.hash,
+)
 
-const log = (event, data) => {
-  console.log(event, data)
-};
+// persist state to URL hash
+watchEffect(() => history.replaceState({}, '', store.serialize()))
+
+// use a specific version of Vue
+vueVersion.value = '3.4.21'
+// production mode is enabled
+productionMode.value = true
 </script>
 
-<style scoped>
-.iframe {
-  width: 100%;
-  height: 400px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-top: 10px;
+<template>
+  <Repl
+    ref="replRef"
+    :theme="theme"
+    :editor="Monaco"
+    @keydown.ctrl.s.prevent
+    @keydown.meta.s.prevent
+    :ssr="useSSRMode"
+    :store="store"
+    :showCompileOutput="true"
+    :autoResize="true"
+    :clearConsole="false"
+  />
+</template>
+
+<style>
+.light {
+  color-scheme: light;
+}
+
+body {
+  margin: 0;
+}
+
+.vue-repl {
+  height: 800px !important;
+}
+
+button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  margin: 0;
+  background-color: transparent;
 }
 </style>
+
