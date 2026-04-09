@@ -40,10 +40,11 @@
     "@codemirror/lang-javascript": "^6.2.2",
     "@codemirror/lang-json": "^6.0.1",
     "@codemirror/theme-one-dark": "^6.1.2",
+    "@vue/repl": "^4.0.0",
     "postcss": "^8.4.38",
     "prettier": "2.8.1",
     "rollup-plugin-visualizer": "^5.12.0",
-    "sass": "^1.71.1",
+    "sass": "1.71.1",
     "tdesign-site-components": "0.14.4",
     "vitepress": "^1.1.0"
   },
